@@ -32,14 +32,14 @@ Build:
 4. Token picker over `getDepositTokens(chainKey)`, default `getTokenByKey(chainKey, 'USDC')`. Fall back to the
    default when the network changes.
 5. Amount input: `parseTokenAmount(text, token.decimals)` (returns `undefined` when invalid). Show the wallet
-   balance (`useBalances`) and a Max button that sets `formatUnits(balance, token.decimals)` (hide Max when
-   `isNativeToken(chainKey, token)`: ETH/S are needed for gas).
+   balance (`useBalances`) and a Max button that sets `formatUnits(balance, token.decimals)`. For the native token
+   (`isNativeToken(chainKey, token)`) hide Max and require `NATIVE_GAS_RESERVE[chainKey]` left over for gas.
 6. Debounced (~400 ms) quote with `useLeverageYieldQuote` (payload in SKILL.md). Show expected shares, their value
    in the underlying (share price × shares, with the share price from
    `useLeverageYieldPreviewRedeem({ vault, shares: ONE_SHARE })`), minimum received
    (`minAmountAfterSlippage(shares, DEFAULT_SLIPPAGE_BPS)`) and slippage.
-7. Quote errors: show the message and a Retry button. Retry no-route refusals (`isNoRouteRefusal`) after ~2 s. Map
-   "amount too low" to "Try at least ~$2".
+7. Quote errors: show the message and a Retry button (no-route refusals, `isNoRouteRefusal`, are often transient).
+   Map "amount too low" to "Try at least ~$2".
 8. A risk notice: real funds; shares are held in the SODAX hub wallet on Sonic, not the wallet app; withdraw from
    the same network; leveraged vault (the APR can change or go negative, the share price can fall).
 9. One primary button driven by a state machine:
@@ -58,8 +58,7 @@ const payload = vault && token && debounced ? {
 } : undefined;
 const { data: result } = useLeverageYieldQuote({
   params: { payload },
-  // data is an SDK Result; retry no-route refusals quickly, otherwise poll every REFETCH_MS
-  queryOptions: { refetchInterval: q => (q.state.data?.ok === false && isNoRouteRefusal(q.state.data.error) ? 2_000 : REFETCH_MS) },
+  queryOptions: { refetchInterval: REFETCH_MS }, // data is an SDK Result: check .ok
 });
 const shares = result?.ok ? result.value.quoted_amount : undefined;
 const minShares = shares !== undefined ? minAmountAfterSlippage(shares, DEFAULT_SLIPPAGE_BPS) : undefined;
@@ -73,15 +72,17 @@ const minShares = shares !== undefined ? minAmountAfterSlippage(shares, DEFAULT_
 
 Build:
 
-1. `Review deposit` opens a dialog with the quote summary and a `Confirm deposit` button. Freeze the reviewed
-   quote (amount, shares, minimum) when the dialog opens, so a quote refresh can't change it mid-flow.
+1. `Review deposit` opens a dialog with the (still live) quote summary and a `Confirm deposit` button. Freeze the
+   inputs when the dialog opens, and capture the minimum from the current quote when the user clicks Confirm. Show
+   `Switch to <network>` instead of Confirm if the wallet moved to another network.
 2. On confirm, run the deposit flow from SKILL.md: **build at confirm time** → allowance → approve and wait for the
    receipt if needed → `vaultSwap({ ...payload, walletProvider })`. Use `mutateAsyncSafe` and branch on `.ok`.
 3. A stepper: `Approve <token>` (or "not needed") → `Confirm the deposit in your wallet` → `Delivering to Sonic` →
    `Solver fills; shares arrive in your hub wallet`. Link every tx hash to its explorer (`explorerTxUrl`).
 4. Capture the source tx hash when the user signs (`withTxListener`, below) and drive the last two steps from
    `useLeverageYieldDetailedStatus({ params: { srcChainKey, srcTxHash } })`.
-5. Don't let the dialog close while a transaction is in flight. On error, show a friendly message
+5. Don't let the dialog close while a transaction is in flight, but after ~5 minutes make it closable with a
+   "still processing, check the explorer link" note. Check the approval receipt succeeded before continuing. On error, show a friendly message
    (`isUserRejectedError` → "You rejected the request"); offer Try again only if nothing was sent yet.
 6. A "Your position" card for the selected vault and network:
    `useLeverageYieldShareBalances({ params: { vault, holders: [{ chainKey, address }] } })[0].data` →

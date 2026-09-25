@@ -61,7 +61,7 @@ The solver rejects deposits under about **$2** ("Input amount too low").
 | Build withdraw | `useLeverageYieldWithdraw()` → `mutateAsyncSafe(params)` | Builder only. Payload has `hubWalletSwap: true`. |
 | Execute | `useLeverageYieldVaultSwap()` → `mutateAsyncSafe({ ...payload, walletProvider })` | Signs, submits, waits for the solver. Resolves **after the fill** (can take 1–2 min). |
 | Approval (deposit) | `sodax.swaps.isAllowanceValid({ params: payload.params, raw: false, walletProvider })`, `useSwapApprove()` | Swap-domain hooks. There is no leverage-yield approve hook. Withdraw needs no approval. |
-| Live status | `useLeverageYieldDetailedStatus({ params: { srcChainKey, srcTxHash } })` | Polls 3 s. `data.value.source === 'backend'` → `data.status` is `pending → relaying → relayed → posting_execution → posted_execution → solved \| failed`. |
+| Live status | `useLeverageYieldDetailedStatus({ params: { srcChainKey, srcTxHash } })` | Defaults to 3 s polling: pass `queryOptions.refetchInterval` (a function returning `false` once terminal, else `REFETCH_MS`). `data.value.source === 'backend'` → `data.status` is `pending → relaying → relayed → posting_execution → posted_execution → solved \| failed`. |
 | Errors | `isUserRejectedError(e)` | Mutations via `mutateAsyncSafe` return `{ ok, value \| error }`. |
 
 Wallet: `useEvmWallet(chainKey)` from `@/wallet` gives `walletProvider` (an `IEvmWalletProvider`) for that chain.
@@ -128,8 +128,8 @@ one message tx on `srcChainKey` that lets the hub wallet spend its shares.
 3. `useLeverageYieldQuote().data` is a `Result`, unlike the other read hooks: check `.ok`.
 4. **No route** is often transient while solvers rebalance (and also what the solver says for amounts that are too
    small). Detect it with `isNoRouteRefusal(error)` from `@sodax/sdk` (it matches the message; the solver sends code
-   `-1`, not `-4`), retry after ~2 s (e.g. `refetchInterval: q => isNoRouteRefusal(err) ? 2_000 : REFETCH_MS`) and show
-   "No route right now".
+   `-1`, not `-4`), keep polling at `REFETCH_MS` and offer a Retry button with "No route right now". Don't poll faster than
+   `REFETCH_MS` (AGENTS.md rule 6).
 5. Token pickers: use `getDepositTokens(chainKey)`. Sonic's SDK config also lists SODAX hub-internal tokens whose
    *symbols* look like real assets (its hub weETH has symbol `weETH`) and the lsoda* share tokens. Never offer those.
 6. Underlying asset: look up `vault.asset` in `sonicSupportedTokens` (`@sodax/types`) for its symbol and decimals

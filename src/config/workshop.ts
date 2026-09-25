@@ -1,4 +1,5 @@
 import { ChainKeys, type SpokeChainKey, spokeChainConfig, type XToken } from '@sodax/types';
+import { parseUnits } from 'viem';
 
 /**
  * Workshop defaults. This is the one config file feature code may edit.
@@ -17,6 +18,13 @@ export const SOURCE_CHAINS = [
 export type SourceChainKey = (typeof SOURCE_CHAINS)[number];
 
 export const DEFAULT_SOURCE_CHAIN: SourceChainKey = ChainKeys.BASE_MAINNET;
+
+/** Native token (ETH / S) to leave in the wallet for gas when depositing the native token itself. */
+export const NATIVE_GAS_RESERVE: Record<SourceChainKey, bigint> = {
+  [ChainKeys.BASE_MAINNET]: parseUnits('0.0005', 18),
+  [ChainKeys.ARBITRUM_MAINNET]: parseUnits('0.0005', 18),
+  [ChainKeys.SONIC_MAINNET]: parseUnits('1', 18),
+};
 
 /** Vault `name` as returned by `sodax.leverageYield.listVaults()`. */
 export const DEFAULT_VAULT_NAME = 'lsodaSUSDS';
