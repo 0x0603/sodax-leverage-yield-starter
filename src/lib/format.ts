@@ -54,10 +54,10 @@ export function formatWad(wad: bigint | undefined, fractionDigits = 2): string {
   return Number(formatUnits(wad, 18)).toFixed(fractionDigits);
 }
 
-/** Basis points → percent string, e.g. 8200 → '82%'. */
-export function formatBps(bps: bigint | number | undefined, fractionDigits = 0): string {
+/** Basis points → percent string, e.g. 8200 → '82%', 7950 → '79.5%', 50 → '0.5%'. */
+export function formatBps(bps: bigint | number | undefined, maxFractionDigits = 2): string {
   if (bps === undefined) return '–';
-  return `${(Number(bps) / 100).toFixed(fractionDigits)}%`;
+  return `${Number((Number(bps) / 100).toFixed(maxFractionDigits))}%`;
 }
 
 /**

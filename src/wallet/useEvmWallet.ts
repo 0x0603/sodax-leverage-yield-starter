@@ -1,4 +1,4 @@
-import { baseChainInfo, type EvmChainKey, type IEvmWalletProvider } from '@sodax/types';
+import { type EvmChainKey, getEvmChainKeyByChainId, type IEvmWalletProvider } from '@sodax/types';
 import {
   useEvmSwitchChain,
   useWalletModal,
@@ -10,12 +10,6 @@ import {
 import type { Address } from 'viem';
 import { useAccount } from 'wagmi';
 import { DEFAULT_SOURCE_CHAIN } from '@/config/workshop';
-
-const EVM_CHAIN_KEY_BY_ID = new Map<number, EvmChainKey>(
-  Object.values(baseChainInfo)
-    .filter(chain => chain.type === 'EVM')
-    .map(chain => [chain.chainId as number, chain.key as EvmChainKey]),
-);
 
 export type EvmWallet = {
   /** Connected EOA (same address on every EVM chain), or undefined when disconnected. */
@@ -60,7 +54,7 @@ export function useEvmWallet(chainKey: EvmChainKey = DEFAULT_SOURCE_CHAIN): EvmW
   return {
     address,
     isConnected: !!address,
-    currentChainKey: chainId ? EVM_CHAIN_KEY_BY_ID.get(chainId) : undefined,
+    currentChainKey: getEvmChainKeyByChainId(chainId),
     walletProvider: walletProvider as IEvmWalletProvider | undefined,
     isWrongChain: !!address && isWrongChain,
     switchChain: handleSwitchChain,

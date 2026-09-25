@@ -1,5 +1,5 @@
 import type { SodaxWalletConfig } from '@sodax/wallet-sdk-react';
-import { EVM_RPC_URLS } from './rpc';
+import { EVM_RPC_URLS, toChainRpcConfig } from './rpc';
 
 const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 
@@ -15,6 +15,6 @@ export const walletConfig: SodaxWalletConfig = {
     ssr: true,
     reconnectOnMount: true,
     walletConnect: walletConnectProjectId ? { projectId: walletConnectProjectId } : undefined,
-    chains: Object.fromEntries(Object.entries(EVM_RPC_URLS).map(([chainKey, rpcUrl]) => [chainKey, { rpcUrl }])),
+    chains: toChainRpcConfig(EVM_RPC_URLS),
   },
 };
