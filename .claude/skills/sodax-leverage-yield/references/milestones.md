@@ -29,15 +29,17 @@ Build:
    (`useLeverageYieldEffectiveApr` → `formatRayPercent(effectiveNetAprRay)`; "estimate" badge if `lsdApr.stale`).
 3. Network picker over `SOURCE_CHAINS` (logo + name via `chainLogo` / `chainName`). Default: the wallet's
    `currentChainKey` if it's in `SOURCE_CHAINS`, else `DEFAULT_SOURCE_CHAIN` (Base).
-4. Token picker over `getDepositTokens(chainKey)`, default `getTokenByKey(chainKey, 'USDC')`. Reset it when the
-   network changes.
+4. Token picker over `getDepositTokens(chainKey)`, default `getTokenByKey(chainKey, 'USDC')`. Fall back to the
+   default when the network changes.
 5. Amount input: `parseTokenAmount(text, token.decimals)` (returns `undefined` when invalid). Show the wallet
-   balance (`useBalances`) and a Max button (hide Max for native ETH/S; they need gas).
+   balance (`useBalances`) and a Max button that sets `formatUnits(balance, token.decimals)` (hide Max when
+   `isNativeToken(chainKey, token)`: ETH/S are needed for gas).
 6. Debounced (~400 ms) quote with `useLeverageYieldQuote` (payload in SKILL.md). Show expected shares, their value
-   in the underlying (`useLeverageYieldPreviewRedeem({ vault, shares })`), minimum received
+   in the underlying (share price × shares, with the share price from
+   `useLeverageYieldPreviewRedeem({ vault, shares: ONE_SHARE })`), minimum received
    (`minAmountAfterSlippage(shares, DEFAULT_SLIPPAGE_BPS)`) and slippage.
-7. Quote errors: show the message and a Retry button. Auto-retry NO_PATH (`error.detail.code === -4`) once after
-   ~2 s. Map "amount too low" to "Try at least ~$2".
+7. Quote errors: show the message and a Retry button. Retry no-route refusals (`isNoRouteRefusal`) after ~2 s. Map
+   "amount too low" to "Try at least ~$2".
 8. A risk notice: real funds; shares are held in the SODAX hub wallet on Sonic, not the wallet app; withdraw from
    the same network; leveraged vault (the APR can change or go negative, the share price can fall).
 9. One primary button driven by a state machine:
@@ -54,7 +56,11 @@ const payload = vault && token && debounced ? {
   token_dst: vault.vault, token_dst_blockchain_id: ChainKeys.SONIC_MAINNET,
   amount: debounced, quote_type: 'exact_input' as const,
 } : undefined;
-const { data: result } = useLeverageYieldQuote({ params: { payload }, queryOptions: { refetchInterval: REFETCH_MS } });
+const { data: result } = useLeverageYieldQuote({
+  params: { payload },
+  // data is an SDK Result; retry no-route refusals quickly, otherwise poll every REFETCH_MS
+  queryOptions: { refetchInterval: q => (q.state.data?.ok === false && isNoRouteRefusal(q.state.data.error) ? 2_000 : REFETCH_MS) },
+});
 const shares = result?.ok ? result.value.quoted_amount : undefined;
 const minShares = shares !== undefined ? minAmountAfterSlippage(shares, DEFAULT_SLIPPAGE_BPS) : undefined;
 ```
@@ -67,7 +73,8 @@ const minShares = shares !== undefined ? minAmountAfterSlippage(shares, DEFAULT_
 
 Build:
 
-1. `Review deposit` opens a dialog with the quote summary and a `Confirm deposit` button.
+1. `Review deposit` opens a dialog with the quote summary and a `Confirm deposit` button. Freeze the reviewed
+   quote (amount, shares, minimum) when the dialog opens, so a quote refresh can't change it mid-flow.
 2. On confirm, run the deposit flow from SKILL.md: **build at confirm time** → allowance → approve and wait for the
    receipt if needed → `vaultSwap({ ...payload, walletProvider })`. Use `mutateAsyncSafe` and branch on `.ok`.
 3. A stepper: `Approve <token>` (or "not needed") → `Confirm the deposit in your wallet` → `Delivering to Sonic` →
@@ -102,18 +109,19 @@ export function withTxListener(walletProvider: IEvmWalletProvider, onTx: (hash: 
   });
 }
 
-// Deposit flow core (reference: hooks/useVaultDeposit.ts)
+// Deposit flow core (reference: hooks/useVaultDeposit.ts). Inside a try/catch that shows friendly errors:
 const built = await buildDeposit({ vault: vault.vault, srcChainKey, srcAddress, inputToken: token.address,
   inputAmount, minOutputAmount: minShares });
-if (!built.ok) return fail(built.error);
+if (!built.ok) throw built.error;
 const allowance = await sodax.swaps.isAllowanceValid({ params: built.value.params, raw: false, walletProvider });
-if (!allowance.ok) return fail(allowance.error);
+if (!allowance.ok) throw allowance.error;
 if (!allowance.value) {
   const approved = await approve({ params: built.value.params, walletProvider });
-  if (!approved.ok) return fail(approved.error);
+  if (!approved.ok) throw approved.error;
   await walletProvider.waitForTransactionReceipt(approved.value as `0x${string}`);
 }
 const result = await vaultSwap({ ...built.value, walletProvider: withTxListener(walletProvider, setSrcTxHash) });
+if (!result.ok) throw result.error;
 ```
 
 ---
@@ -124,7 +132,8 @@ const result = await vaultSwap({ ...built.value, walletProvider: withTxListener(
 
 Build a card per vault (`listVaults()`) with:
 
-- Underlying symbol (from `vault.asset`, see SKILL.md gotcha 6) and yield source (`lsdSource.label`).
+- Underlying asset symbol and decimals (from `vault.asset`, see SKILL.md gotcha 6) and yield source
+  (`lsdSource.label`).
 - Net APR (`effectiveNetAprRay`) with a tooltip explaining it, and an "APR estimate" badge when `lsdApr.stale`.
 - TVL: `useLeverageYieldTotalAssets` (18 dp, underlying units).
 - Share price: `useLeverageYieldPreviewRedeem({ vault, shares: ONE_SHARE })`.

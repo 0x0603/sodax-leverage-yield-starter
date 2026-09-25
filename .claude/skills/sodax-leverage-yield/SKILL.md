@@ -126,18 +126,23 @@ one message tx on `srcChainKey` that lets the hub wallet spend its shares.
 2. Quote with `useLeverageYieldQuote`, not `useQuote`: they deduct different fees. Don't call `adjustAmountByFee` on
    top.
 3. `useLeverageYieldQuote().data` is a `Result`, unlike the other read hooks: check `.ok`.
-4. **NO_PATH** (solver error code `-4`) is often transient while solvers rebalance: retry after a couple of seconds and
-   show "No route right now".
+4. **No route** is often transient while solvers rebalance (and also what the solver says for amounts that are too
+   small). Detect it with `isNoRouteRefusal(error)` from `@sodax/sdk` (it matches the message; the solver sends code
+   `-1`, not `-4`), retry after ~2 s (e.g. `refetchInterval: q => isNoRouteRefusal(err) ? 2_000 : REFETCH_MS`) and show
+   "No route right now".
 5. Token pickers: use `getDepositTokens(chainKey)`. Sonic's SDK config also lists SODAX hub-internal tokens whose
    *symbols* look like real assets (its hub weETH has symbol `weETH`) and the lsoda* share tokens. Never offer those.
-6. Underlying symbol: look up `vault.asset` in `spokeChainConfig[ChainKeys.SONIC_MAINNET].supportedTokens` (don't
-   parse the LSD label: Lido's says "stETH" but the asset is wstETH).
-7. `useLeverageYieldShareBalances` returns an array; read `[i].data?.shares`.
-8. Shares can't be pulled out by SODAX's recovery tools. The only exit is a withdraw.
-9. Simulation failures ("Simulation completed" revert) mean the tx would fail on-chain, usually from a missing
+6. Underlying asset: look up `vault.asset` in `sonicSupportedTokens` (`@sodax/types`) for its symbol and decimals
+   (don't parse the LSD label: Lido's says "stETH" but the asset is wstETH). TVL and share price are in that asset.
+7. Native tokens (ETH, S): `isNativeToken(chainKey, token)` from `@sodax/types`. They need no approval, and the user
+   needs some left for gas (no Max button).
+8. `useLeverageYieldShareBalances` returns an array; read `[i].data?.shares`. After a deposit or withdraw completes,
+   `queryClient.invalidateQueries({ queryKey: ['leverageYield', 'shareBalance'] })` so balances refresh at once.
+9. Shares can't be pulled out by SODAX's recovery tools. The only exit is a withdraw.
+10. Simulation failures ("Simulation completed" revert) mean the tx would fail on-chain, usually from a missing
    balance, allowance or shares. The SDK simulates before asking the wallet to sign.
-10. The wallet must be on the source chain: check `isWrongChain` and offer `switchChain()` before any signature.
-11. Show risk clearly: real funds, hub-wallet custody, withdraw from the same chain, leveraged vault (the APR can go
+11. The wallet must be on the source chain: check `isWrongChain` and offer `switchChain()` before any signature.
+12. Show risk clearly: real funds, hub-wallet custody, withdraw from the same chain, leveraged vault (the APR can go
     negative, the share price can fall; health factor is ~1.2).
 
 ## Copy
