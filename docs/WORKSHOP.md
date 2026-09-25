@@ -159,3 +159,23 @@ Continue with the next milestone's prompt from there.
   negative; share price can fall; exit is only via withdraw.
 - **API option:** everything the SDK does is also available via the keyless REST API at
   `https://api.sodax.com/v1/leverage-yield/*`. The `solution` branch has a toggle to show both.
+
+## 8. Maintaining the branches
+
+The branches form one linear stack: `main` → `checkpoint/m1` → `m2` → `m3` → `m4` → `solution`. Each checkpoint
+only adds files under `src/features/leverage-yield/`. After changing `main`, restack and re-verify:
+
+```bash
+git switch checkpoint/m1 && git rebase main
+git switch checkpoint/m2 && git rebase checkpoint/m1
+git switch checkpoint/m3 && git rebase checkpoint/m2
+git switch checkpoint/m4 && git rebase checkpoint/m3
+git switch solution      && git rebase checkpoint/m4
+git push --force-with-lease origin main checkpoint/m1 checkpoint/m2 checkpoint/m3 checkpoint/m4 solution
+```
+
+CI runs `pnpm check` and `pnpm build` on every branch. Re-run "Deploy solution to Pages" afterwards.
+
+To move to a new SDK release: update the `@sodax/*` pins in `package.json` and `EXPECTED` in
+`scripts/check-versions.ts`, run `pnpm install && pnpm check && pnpm preflight` on every branch, and re-check the
+skill's API table against the new `.d.ts` files.
