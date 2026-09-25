@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "sodax-marketing": {
+      "url": "https://marketing.sodax.com/mcp"
+    },
+    "sodax-docs": {
+      "url": "https://docs.sodax.com/mcp"
+    }
+  }
+}

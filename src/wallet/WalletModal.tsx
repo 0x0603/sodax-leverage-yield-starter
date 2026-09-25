@@ -1,0 +1,160 @@
+import { sortConnectors, useWalletModal, useXConnectors, type XConnector } from '@sodax/wallet-sdk-react';
+import { CheckCircle2Icon, Loader2Icon } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
+import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/ui/callout';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { shortenAddress } from '@/lib/format';
+
+/**
+ * Connect modal built on the headless `useWalletModal` state machine from @sodax/wallet-sdk-react.
+ * EVM is the only enabled chain family, so the chain step is skipped. Mounted once in the header.
+ */
+export function WalletModal() {
+  const modal = useWalletModal();
+  const { state } = modal;
+
+  // Only EVM is enabled: skip the chain picker whenever something opens the modal.
+  useEffect(() => {
+    if (state.kind === 'chainSelect') modal.selectChain('EVM');
+  }, [state.kind, modal]);
+
+  // Close shortly after a successful connection.
+  useEffect(() => {
+    if (state.kind !== 'success') return;
+    const timer = setTimeout(modal.close, 900);
+    return () => clearTimeout(timer);
+  }, [state.kind, modal.close]);
+
+  return (
+    <Dialog open={state.kind !== 'closed'} onOpenChange={open => !open && modal.close()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{state.kind === 'success' ? 'Connected' : 'Connect a wallet'}</DialogTitle>
+          <DialogDescription>
+            EVM wallets only. Use a wallet you funded for this workshop — transactions use real mainnet funds.
+          </DialogDescription>
+        </DialogHeader>
+
+        {(state.kind === 'walletSelect' || state.kind === 'chainSelect') && <WalletList onPick={modal.selectWallet} />}
+
+        {state.kind === 'connecting' && (
+          <div className="flex flex-col items-center gap-3 py-6 text-center">
+            <Loader2Icon className="size-8 animate-spin text-primary" />
+            <p className="text-sm">
+              Approve the connection in <span className="font-semibold">{state.connector.name}</span>.
+            </p>
+            <Button variant="ghost" size="sm" onClick={modal.back}>
+              Cancel
+            </Button>
+          </div>
+        )}
+
+        {state.kind === 'error' && (
+          <div className="flex flex-col gap-3">
+            <Callout variant="destructive">
+              <p className="font-semibold">Could not connect {state.connector.name}</p>
+              <p className="mt-1 break-words text-xs">{state.error.message}</p>
+            </Callout>
+            <div className="flex gap-2">
+              <Button className="flex-1" onClick={() => void modal.retry()}>
+                Try again
+              </Button>
+              <Button className="flex-1" variant="outline" onClick={modal.back}>
+                Other wallet
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {state.kind === 'success' && (
+          <div className="flex flex-col items-center gap-2 py-4 text-center">
+            <CheckCircle2Icon className="size-8 text-success" />
+            <p className="font-mono text-sm">{shortenAddress(state.account.address)}</p>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// Shown when no EIP-6963 wallet announced itself (nothing installed).
+const SUGGESTED_WALLETS = [
+  { name: 'MetaMask', url: 'https://metamask.io/download/' },
+  { name: 'Rabby', url: 'https://rabby.io/' },
+  { name: 'Hana Wallet', url: 'https://www.hanawallet.io/' },
+];
+
+function WalletList({ onPick }: { onPick: (connector: XConnector) => Promise<unknown> }) {
+  const connectors = useXConnectors({ xChainType: 'EVM' });
+  const sorted = useMemo(() => {
+    const byPreference = sortConnectors(connectors, { preferred: ['hana', 'metaMask', 'io.rabby'] });
+    return [...byPreference].sort((a, b) => Number(b.isInstalled) - Number(a.isInstalled));
+  }, [connectors]);
+  const anyInstalled = sorted.some(connector => connector.isInstalled);
+
+  return (
+    <div className="flex flex-col gap-3">
+      {!anyInstalled && <Callout>No browser wallet detected. Install one, then reload this page.</Callout>}
+      {sorted.length === 0 && (
+        <ul className="flex flex-col gap-2">
+          {SUGGESTED_WALLETS.map(wallet => (
+            <li key={wallet.name}>
+              <a
+                href={wallet.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-md border border-dashed px-4 py-3 hover:bg-secondary"
+              >
+                <span className="font-medium">{wallet.name}</span>
+                <span className="text-xs font-medium text-primary">Install</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      <ul className="flex flex-col gap-2">
+        {sorted.map(connector => (
+          <li key={connector.id}>
+            {connector.isInstalled ? (
+              <button
+                type="button"
+                onClick={() => void onPick(connector)}
+                className="flex w-full items-center gap-3 rounded-md border bg-card px-4 py-3 text-left transition-colors hover:bg-secondary"
+              >
+                <ConnectorIcon connector={connector} />
+                <span className="flex-1 font-medium">{connector.name}</span>
+                <span className="text-xs text-success">Detected</span>
+              </button>
+            ) : (
+              <div className="flex items-center gap-3 rounded-md border border-dashed px-4 py-3">
+                <ConnectorIcon connector={connector} />
+                <span className="flex-1 text-muted-foreground">{connector.name}</span>
+                {connector.installUrl ? (
+                  <a
+                    href={connector.installUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-primary hover:underline"
+                  >
+                    Install
+                  </a>
+                ) : (
+                  <span className="text-xs text-subtle-foreground">Not installed</span>
+                )}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ConnectorIcon({ connector }: { connector: XConnector }) {
+  return connector.icon ? (
+    <img src={connector.icon} alt="" className="size-7 rounded-md" />
+  ) : (
+    <div className="size-7 rounded-md bg-muted" />
+  );
+}

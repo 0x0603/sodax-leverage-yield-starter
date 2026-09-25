@@ -1,0 +1,15 @@
+{
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "Bash(pnpm check)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm format)",
+      "Bash(pnpm build)",
+      "Bash(pnpm preflight)",
+      "mcp__sodax-marketing",
+      "mcp__sodax-docs"
+    ]
+  }
+}

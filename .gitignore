@@ -1,0 +1,12 @@
+node_modules
+dist
+*.local
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+.DS_Store
+.vite
+coverage
+.claude/settings.local.json
+.claude/worktrees/

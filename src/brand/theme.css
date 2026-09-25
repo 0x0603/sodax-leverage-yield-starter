@@ -1,0 +1,56 @@
+/*
+ * Brand theme: the ONLY place brand colours, fonts and radii live.
+ *
+ * Components use semantic Tailwind classes (bg-primary, text-muted-foreground, rounded-lg, font-display…)
+ * that read these variables. To whitelabel, change the values below (and src/brand/brand.config.ts,
+ * public/brand/*). Nothing else needs to change.
+ *
+ * Defaults: SODAX brand tokens from https://marketing.sodax.com/mcp (sodax_get_design_tokens).
+ * Warm cherry + cream palette. Yellow is an accent only, never a surface. Buttons are pills.
+ */
+:root {
+  /* Surfaces */
+  --background: #f9f7f5; /* vibrant-white */
+  --foreground: #483434; /* espresso */
+  --card: #ffffff;
+  --card-foreground: #483434;
+  --popover: #ffffff;
+  --popover-foreground: #483434;
+
+  /* Brand */
+  --primary: #a55c55; /* cherry-soda */
+  --primary-hover: #964d48; /* cherry-dark */
+  --primary-foreground: #ffffff;
+  --secondary: #f8f3f3; /* almost-white */
+  --secondary-foreground: #a55c55;
+  --accent: #ffd92f; /* yellow-soda: accents on primary surfaces only */
+  --accent-foreground: #964d48;
+
+  /* Neutrals */
+  --muted: #f0eaeb; /* light-cream */
+  --muted-foreground: #6b5c5b; /* clay-dark */
+  --subtle-foreground: #8e7e7d; /* clay */
+  --border: #e5d5d4; /* cream-cherry */
+  --input: #e5d5d4;
+  --ring: #cc9e9a; /* cherry-bright */
+
+  /* Hero band (primary surface with light text) */
+  --hero: #a55c55;
+  --hero-foreground: #ffffff;
+  --hero-muted: #e3bebb; /* cherry-brighter */
+  --hero-accent: #ffd92f;
+
+  /* Status */
+  --destructive: #ce4446;
+  --destructive-foreground: #ffffff;
+  --destructive-muted: #faecec;
+  --success: #089541;
+  --success-muted: #e6f8ec;
+  --notice: #ede6e6; /* cream-white: callouts with a primary left border */
+
+  /* Shape and type */
+  --radius: 16px;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inria Serif", ui-serif, Georgia, serif;
+  --font-accent: "Shrikhand", cursive;
+}

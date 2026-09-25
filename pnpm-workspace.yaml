@@ -1,0 +1,11 @@
+# Single-package repo. This file only carries pnpm settings.
+
+# One copy of each of these across the whole tree. wallet-sdk-react, dapp-kit and wagmi must share the
+# same React and React Query instances, or hooks throw "No QueryClient set" / the page renders blank.
+# viem is deliberately NOT overridden: the SODAX packages pin 2.29.2 themselves, and some wallet
+# dependencies (e.g. @injectivelabs/*) need a newer viem of their own.
+overrides:
+  "@tanstack/react-query": "5.87.4"
+  wagmi: "2.16.9"
+  react: "19.1.4"
+  react-dom: "19.1.4"
