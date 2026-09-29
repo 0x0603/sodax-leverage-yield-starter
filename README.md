@@ -59,7 +59,7 @@ codex mcp add sodax-docs --url https://docs.sodax.com/mcp
 
 | Branch | Contents |
 |---|---|
-| `main` | The starter: wallet + SDK wired, placeholder where the feature goes |
+| `main` | The starter: wallet + SDK wired, the Milestone 1 prompt where the feature goes |
 | `checkpoint/m1` | + deposit form with live quote |
 | `checkpoint/m2` | + execute deposit, stepper, "Your position" |
 | `checkpoint/m3` | + vault browser |

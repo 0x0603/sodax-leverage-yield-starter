@@ -69,6 +69,9 @@ If time is short, M2 is the one that matters. Move people to `checkpoint/m2` so 
 
 Tip: start each milestone in a fresh agent session. The repo's AGENTS.md and skill carry the context.
 
+The app shows the next prompt at the top of the page, with a Copy button. It reads the blocks below
+(`src/components/workshop/prompts.ts`), so keep the `**M1**` … `**Bonus: rebrand**` headings and fences as they are.
+
 **M1**
 
 ```
@@ -129,7 +132,7 @@ git fetch https://github.com/gosodax/sodax-leverage-yield-starter.git checkpoint
 git switch -c m2 FETCH_HEAD
 ```
 
-Continue with the next milestone's prompt from there.
+Continue with the next milestone's prompt from there. The app shows it at the top of the page.
 
 ## 6. Troubleshooting
 

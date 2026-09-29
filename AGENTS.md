@@ -94,3 +94,7 @@ and change only `src/brand/`.
 The feature is built in four milestones (see `docs/WORKSHOP.md` and
 `.agents/skills/sodax-leverage-yield/references/milestones.md`). Reference builds live on branches
 `checkpoint/m1` … `checkpoint/m4` and `solution`.
+
+On `main` and the checkpoints, `LeverageYieldPage.tsx` shows `<NextPrompt next={N} />` (from
+`@/components/workshop/NextPrompt`): the prompt the participant pastes next, read from `docs/WORKSHOP.md`. Keep it
+at the top of the page. When you finish milestone N, set `next={N + 1}`, or `next="done"` after Milestone 4.
