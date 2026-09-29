@@ -7,7 +7,7 @@ import { bonusPrompt, type Milestone, milestonePrompt } from './prompts';
 const code = 'rounded bg-muted px-1.5 py-0.5 font-mono text-xs';
 
 /**
- * Workshop helper: the prompt to paste into your coding agent next, straight from docs/WORKSHOP.md §4.
+ * Workshop helper: the prompt to paste into your coding agent next, straight from docs/WORKSHOP.md §3.
  * `next={1}` on main, `next={2}` on checkpoint/m1 … `next="done"` on checkpoint/m4. Not rendered on `solution`.
  */
 export function NextPrompt({ next }: { next: Milestone | 'done' }) {
@@ -41,7 +41,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
           <PromptBox prompt={step.prompt} />
         ) : (
           <p className="text-sm text-muted-foreground">
-            Open <code className={code}>docs/WORKSHOP.md</code> and give your agent the next prompt from §4.
+            Open <code className={code}>docs/WORKSHOP.md</code> and give your agent the next prompt from §3.
           </p>
         )}
         {step?.check && (

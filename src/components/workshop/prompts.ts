@@ -2,7 +2,8 @@ import workshop from '../../../docs/WORKSHOP.md?raw';
 
 /**
  * Workshop prompts, read from docs/WORKSHOP.md at build time so the in-app card never drifts from the runbook.
- * §3 (timeline) gives each milestone's title and check; §4 gives the prompt, in a fenced block under "**M1**" etc.
+ * §2 (agenda) gives each milestone's title and check; §3 gives the prompt, in a fenced block under "**M1**" etc.
+ * Format notes for editors: docs/FACILITATOR.md §3.
  */
 
 export type Milestone = 1 | 2 | 3 | 4;

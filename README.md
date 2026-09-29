@@ -10,7 +10,8 @@ feature.
 - **Network:** mainnet only. Deposits use **real funds**.
 - **Keys:** none needed. The SDK and the REST API are keyless.
 
-> Running the workshop? Start with [docs/WORKSHOP.md](docs/WORKSHOP.md).
+> Taking part in the workshop? Start with [docs/WORKSHOP.md](docs/WORKSHOP.md). Running it? See
+> [docs/FACILITATOR.md](docs/FACILITATOR.md).
 
 ## Quick start
 
@@ -87,7 +88,8 @@ src/
   components/ui/             Button, Card, Dialog, Select, Input, Badge, Callout, Skeleton, Tooltip
   lib/                       unit/format helpers, chain + explorer helpers
 scripts/                     preflight and guard scripts
-docs/WORKSHOP.md             workshop runbook
+docs/WORKSHOP.md             workshop guide for participants
+docs/FACILITATOR.md          checklist and branch maintenance for organisers
 ```
 
 ## Make it yours (whitelabel)
