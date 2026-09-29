@@ -12,7 +12,7 @@ feature.
 
 > Taking part in the workshop? Start with [docs/WORKSHOP.md](docs/WORKSHOP.md).
 >
-> See the finished app (branch `solution`) live at **<https://sodax-leverage-yield-starter.vercel.app>**.
+> See the finished app (branch `solution`) live at **<https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app>**.
 
 ## Quick start
 
@@ -66,7 +66,7 @@ codex mcp add sodax-docs --url https://docs.sodax.com/mcp
 | `checkpoint/m2` | + execute deposit, stepper, "Your position" |
 | `checkpoint/m3` | + vault browser |
 | `checkpoint/m4` | + withdraw |
-| `solution` | Complete reference build with a polished UX (vault list → deposit/withdraw modal, USD values, "Your vaults" across networks), plus an SDK/API transport toggle. Live at <https://sodax-leverage-yield-starter.vercel.app> |
+| `solution` | Complete reference build with a polished UX (vault list → deposit/withdraw modal, USD values, "Your vaults" across networks), plus an SDK/API transport toggle. Live at <https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app> |
 
 ## Scripts
 
