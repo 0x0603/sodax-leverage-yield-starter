@@ -3,6 +3,9 @@
 In about an hour you'll use a coding agent (Claude Code, Codex, Cursor, …) to add pooled vault deposits to a React
 app, then make a real deposit into a SODAX vault. You leave with a working vault app and vault shares of your own.
 
+The finished app is live at **<https://sodax-leverage-yield-starter.vercel.app>** (branch `solution`). Use it to compare with yours, or to see your
+shares and withdraw if your own build breaks.
+
 > Real funds. There is no testnet vault. Use a fresh wallet you funded yourself and small amounts (~$5 per
 > deposit).
 
@@ -40,7 +43,7 @@ branches only come with a full clone.
 | 0:17 | **M2** Execute deposit + shares | Paste prompt M2, then make a real ~$5 deposit. Check: "Your position" shows shares. |
 | 0:32 | **M3** Vault browser | Paste prompt M3. Check: 4 vault cards with live APR / TVL. |
 | 0:42 | **M4** Withdraw | Paste prompt M4. Check: withdraw quote. Optional: withdraw for real. |
-| 0:54 | Wrap (6 min) | The finished `solution` (list + modal UX, SDK/API toggle), rebranding with one prompt, docs and skills, Q&A. |
+| 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, docs and skills, Q&A. |
 
 Falling behind? M2 is the one that matters. Switch to `checkpoint/m2` (see §4) so you can still deposit.
 
@@ -112,7 +115,7 @@ git switch -c m2 FETCH_HEAD
 Continue with the next milestone's prompt from there. The app shows it at the top of the page.
 
 If your code breaks after you deposited, your shares are safe: they belong to your wallet and network, not to the
-app. Switch to `solution` (or open the hosted solution) to see them and withdraw.
+app. Open the [hosted solution](https://sodax-leverage-yield-starter.vercel.app) (or switch to `solution`) to see them and withdraw.
 
 ## 5. Troubleshooting
 
@@ -126,8 +129,8 @@ app. Switch to `solution` (or open the hosted solution) to see them and withdraw
 | "No route right now" | Solvers are rebalancing. It retries automatically; press Retry after a few seconds. |
 | "Amount too low" | Deposit at least ~$2. |
 | "Simulation reverted" | The tx would fail: not enough balance, gas or shares. Top up gas on the source network. |
-| Deposit stuck on "Delivering to Sonic" / "Solver fills" | Usually under 2 minutes. Keep the dialog open; the tx link shows it's on-chain. If it's still pending after 5 minutes, check your position on the `solution` branch and ask a facilitator. |
-| "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card shows them; "Your vaults" on the `solution` branch lists every vault and network. |
+| Deposit stuck on "Delivering to Sonic" / "Solver fills" | Usually under 2 minutes. Keep the dialog open; the tx link shows it's on-chain. If it's still pending after 5 minutes, check your position on the [hosted solution](https://sodax-leverage-yield-starter.vercel.app) and ask a facilitator. |
+| "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card shows them; "Your vaults" on the [hosted solution](https://sodax-leverage-yield-starter.vercel.app) lists every vault and network. |
 | Agent built "leverage positions" | Wrong product. Revert, and tell it: "Vaults only; read AGENTS.md scope." |
 | Codex doesn't see the MCP servers | Run `codex mcp add sodax-marketing --url https://marketing.sodax.com/mcp` (and `sodax-docs` with `https://docs.sodax.com/mcp`). |
 
@@ -141,4 +144,4 @@ app. Switch to `solution` (or open the hosted solution) to see them and withdraw
 - **Risks:** real funds; leveraged positions (health factor ~1.2); the APR is variable and can go negative; share
   price can fall; exit is only via withdraw.
 - **API option:** everything the SDK does is also available via the keyless REST API at
-  `https://api.sodax.com/v1/leverage-yield/*`. The `solution` branch has a toggle to show both.
+  `https://api.sodax.com/v1/leverage-yield/*`. The `solution` branch ([live](https://sodax-leverage-yield-starter.vercel.app)) has a toggle to show both.

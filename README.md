@@ -10,8 +10,9 @@ feature.
 - **Network:** mainnet only. Deposits use **real funds**.
 - **Keys:** none needed. The SDK and the REST API are keyless.
 
-> Taking part in the workshop? Start with [docs/WORKSHOP.md](docs/WORKSHOP.md). Running it? See
-> [docs/FACILITATOR.md](docs/FACILITATOR.md).
+> Taking part in the workshop? Start with [docs/WORKSHOP.md](docs/WORKSHOP.md).
+>
+> See the finished app (branch `solution`) live at **<https://sodax-leverage-yield-starter.vercel.app>**.
 
 ## Quick start
 
@@ -65,7 +66,7 @@ codex mcp add sodax-docs --url https://docs.sodax.com/mcp
 | `checkpoint/m2` | + execute deposit, stepper, "Your position" |
 | `checkpoint/m3` | + vault browser |
 | `checkpoint/m4` | + withdraw |
-| `solution` | Complete reference build with a polished UX (vault list → deposit/withdraw modal, USD values, "Your vaults" across networks), plus an SDK/API transport toggle |
+| `solution` | Complete reference build with a polished UX (vault list → deposit/withdraw modal, USD values, "Your vaults" across networks), plus an SDK/API transport toggle. Live at <https://sodax-leverage-yield-starter.vercel.app> |
 
 ## Scripts
 
@@ -89,7 +90,6 @@ src/
   lib/                       unit/format helpers, chain + explorer helpers
 scripts/                     preflight and guard scripts
 docs/WORKSHOP.md             workshop guide for participants
-docs/FACILITATOR.md          checklist and branch maintenance for organisers
 ```
 
 ## Make it yours (whitelabel)
