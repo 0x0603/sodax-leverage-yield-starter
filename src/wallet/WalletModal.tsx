@@ -1,4 +1,4 @@
-import { sortConnectors, useWalletModal, useXConnectors, type XConnector } from '@sodax/wallet-sdk-react';
+import { sortConnectors, useWalletModal, useXAccount, useXConnectors, type XConnector } from '@sodax/wallet-sdk-react';
 import { CheckCircle2Icon, Loader2Icon } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,7 @@ import { shortenAddress } from '@/lib/format';
 export function WalletModal() {
   const modal = useWalletModal();
   const { state } = modal;
+  const { address } = useXAccount({ xChainType: 'EVM' });
 
   // Only EVM is enabled: skip the chain picker whenever something opens the modal.
   useEffect(() => {
@@ -26,6 +27,12 @@ export function WalletModal() {
     return () => clearTimeout(timer);
   }, [state.kind, modal.close]);
 
+  // Cancel doesn't withdraw the request the wallet is showing. If the user approves it afterwards, the wallet
+  // connects but the SDK drops that late result, so close the modal instead of leaving it on the list.
+  useEffect(() => {
+    if (address && (state.kind === 'walletSelect' || state.kind === 'error')) modal.close();
+  }, [address, state.kind, modal.close]);
+
   return (
     <Dialog open={state.kind !== 'closed'} onOpenChange={open => !open && modal.close()}>
       <DialogContent>
@@ -36,7 +43,7 @@ export function WalletModal() {
           </DialogDescription>
         </DialogHeader>
 
-        {(state.kind === 'walletSelect' || state.kind === 'chainSelect') && <WalletList onPick={modal.selectWallet} />}
+        {(state.kind === 'walletSelect' || state.kind === 'chainSelect') && <WalletList />}
 
         {state.kind === 'connecting' && (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
@@ -54,7 +61,7 @@ export function WalletModal() {
           <div className="flex flex-col gap-3">
             <Callout variant="destructive">
               <p className="font-semibold">Could not connect {state.connector.name}</p>
-              <p className="mt-1 break-words text-xs">{state.error.message}</p>
+              <p className="mt-1 break-words text-xs">{connectErrorMessage(state.error, state.connector.name)}</p>
             </Callout>
             <div className="flex gap-2">
               <Button className="flex-1" onClick={() => void modal.retry()}>
@@ -85,7 +92,13 @@ const SUGGESTED_WALLETS = [
   { name: 'Hana Wallet', url: 'https://www.hanawallet.io/' },
 ];
 
-function WalletList({ onPick }: { onPick: (connector: XConnector) => Promise<unknown> }) {
+/**
+ * Wallet picker. It takes `selectWallet` from its own `useWalletModal()` on purpose: the SDK ignores a pick of a
+ * connector whose earlier attempt is still pending, and Cancel leaves that attempt pending (the wallet keeps its
+ * request open). The list remounts every time it is shown, so each visit gets a fresh attempt.
+ */
+function WalletList() {
+  const { selectWallet } = useWalletModal();
   const connectors = useXConnectors({ xChainType: 'EVM' });
   const sorted = useMemo(() => {
     const byPreference = sortConnectors(connectors, { preferred: ['hana', 'metaMask', 'io.rabby'] });
@@ -119,7 +132,7 @@ function WalletList({ onPick }: { onPick: (connector: XConnector) => Promise<unk
             {connector.isInstalled ? (
               <button
                 type="button"
-                onClick={() => void onPick(connector)}
+                onClick={() => void selectWallet(connector)}
                 className="flex w-full items-center gap-3 rounded-md border bg-card px-4 py-3 text-left transition-colors hover:bg-secondary"
               >
                 <ConnectorIcon connector={connector} />
@@ -157,4 +170,16 @@ function ConnectorIcon({ connector }: { connector: XConnector }) {
   ) : (
     <div className="size-7 rounded-md bg-muted" />
   );
+}
+
+/** One short line for a failed connection. Wallet errors carry EIP-1193 codes; their messages run long. */
+function connectErrorMessage(error: Error, walletName: string): string {
+  const code = (error as { code?: number }).code;
+  if (code === 4001 || /user rejected|denied/i.test(error.message)) {
+    return `You rejected the connection in ${walletName}.`;
+  }
+  if (code === -32002 || /already pending/i.test(error.message)) {
+    return `${walletName} still has an earlier connection request open. Open ${walletName}, approve or reject it, then try again.`;
+  }
+  return error.message.split('\n')[0];
 }
