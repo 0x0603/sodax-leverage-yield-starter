@@ -61,7 +61,7 @@ pnpm preflight   # read-only health check of the SODAX API, RPCs and quote route
    network" button when `isWrongChain`. Don't import wagmi or wallet-sdk-react hooks in feature code.
 2. **SDK first.** Use `@sodax/dapp-kit` hooks (`useLeverageYield*`) and `useSodaxContext().sodax`. The REST API
    (`useLeverageYieldApi*`, `sodax.api.leverageYield`) is the optional second path; use it only when asked to.
-3. **Never add or upgrade `@sodax/*` packages.** They're pinned to `2.2.0-rc.7` and already installed.
+3. **Never add or upgrade `@sodax/*` packages.** They're pinned to `2.2.0-rc.8` and already installed.
    `pnpm add @sodax/...` would install `latest` (2.1.0), which lacks parts of this API. `pnpm check` fails if that
    happens.
 4. **Styling:** Tailwind with the semantic tokens only (`bg-primary`, `text-muted-foreground`, `bg-card`,

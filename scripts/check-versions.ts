@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-const EXPECTED = '2.2.0-rc.7';
+const EXPECTED = '2.2.0-rc.8';
 const root = path.resolve(import.meta.dirname, '..');
 const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'));
 

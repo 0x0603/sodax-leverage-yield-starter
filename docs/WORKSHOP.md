@@ -137,7 +137,7 @@ Continue with the next milestone's prompt from there.
 |---|---|
 | `pnpm install` very slow | It's a big dependency tree (wallet SDKs). Use a phone hotspot, or pair with someone who installed at home. |
 | Blank page, console says "No QueryClient set" or shows two Reacts | An agent changed `vite.config.ts` / providers or added a package. `git checkout vite.config.ts src/providers.tsx package.json pnpm-lock.yaml && pnpm install`. |
-| `pnpm check` fails in `check-versions`, or the footer doesn't say "SDK 2.2.0-rc.7" | An agent ran `pnpm add @sodax/...`. Restore `package.json` / `pnpm-lock.yaml` from git and `pnpm install`. |
+| `pnpm check` fails in `check-versions`, or the footer doesn't say "SDK 2.2.0-rc.8" | An agent ran `pnpm add @sodax/...`. Restore `package.json` / `pnpm-lock.yaml` from git and `pnpm install`. |
 | Wallet not listed | Install/unlock a browser wallet extension and reload. Only EVM wallets are supported. |
 | Button says "Switch to Base" | The wallet is on another network. Click it and approve in the wallet. |
 | "No route right now" | Solvers are rebalancing. It retries automatically; press Retry after a few seconds. |

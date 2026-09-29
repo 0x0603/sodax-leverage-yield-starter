@@ -5,7 +5,7 @@ agent. Wallet connection, the SODAX SDK and a themeable UI kit are wired up; you
 feature.
 
 - **Stack:** Vite 7, React 19, TypeScript, Tailwind v4, `@sodax/sdk` + `@sodax/dapp-kit` + `@sodax/wallet-sdk-react`
-  (all `2.2.0-rc.7`)
+  (all `2.2.0-rc.8`)
 - **Wallets:** EVM (browser extensions via EIP-6963; WalletConnect optional)
 - **Network:** mainnet only. Deposits use **real funds**.
 - **Keys:** none needed. The SDK and the REST API are keyless.

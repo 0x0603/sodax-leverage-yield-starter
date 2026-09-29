@@ -1,12 +1,12 @@
 ---
 name: sodax-leverage-yield
-description: Build the SODAX Leverage Yield feature (pooled ERC-4626 lsoda* vaults) in this React starter with @sodax/dapp-kit 2.2.0-rc.7. Use for any task about vaults, lsodaWEETH / lsodaWSTETH / lsodaJITOSOL / lsodaSUSDS, deposit or withdraw flows, vault APR / TVL / share price, a user's vault shares, or the workshop milestones M1–M4. Vaults only, never leverage positions.
+description: Build the SODAX Leverage Yield feature (pooled ERC-4626 lsoda* vaults) in this React starter with @sodax/dapp-kit 2.2.0-rc.8. Use for any task about vaults, lsodaWEETH / lsodaWSTETH / lsodaJITOSOL / lsodaSUSDS, deposit or withdraw flows, vault APR / TVL / share price, a user's vault shares, or the workshop milestones M1–M4. Vaults only, never leverage positions.
 license: MIT
 ---
 
 # SODAX Leverage Yield: vault feature
 
-Everything here was checked against the installed `@sodax/*@2.2.0-rc.7` types and the live mainnet solver/API.
+Everything here was checked against the installed `@sodax/*@2.2.0-rc.8` types and the live mainnet solver/API.
 Read [AGENTS.md](../../../AGENTS.md) first for repo rules. Milestone specs are in
 [references/milestones.md](references/milestones.md), the REST API path in
 [references/api-recipes.md](references/api-recipes.md).

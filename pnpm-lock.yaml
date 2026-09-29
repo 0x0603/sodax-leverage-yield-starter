@@ -39,17 +39,17 @@ importers:
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       '@sodax/dapp-kit':
-        specifier: 2.2.0-rc.7
-        version: 2.2.0-rc.7(@tanstack/react-query@5.87.4(react@19.1.4))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(react@19.1.4)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
+        specifier: 2.2.0-rc.8
+        version: 2.2.0-rc.8(@tanstack/react-query@5.87.4(react@19.1.4))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(react@19.1.4)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@sodax/sdk':
-        specifier: 2.2.0-rc.7
-        version: 2.2.0-rc.7(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
+        specifier: 2.2.0-rc.8
+        version: 2.2.0-rc.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@sodax/types':
-        specifier: 2.2.0-rc.7
-        version: 2.2.0-rc.7
+        specifier: 2.2.0-rc.8
+        version: 2.2.0-rc.8
       '@sodax/wallet-sdk-react':
-        specifier: 2.2.0-rc.7
-        version: 2.2.0-rc.7(8cf8570f761c09a5a5d1ffe4a83121d5)
+        specifier: 2.2.0-rc.8
+        version: 2.2.0-rc.8(8cf8570f761c09a5a5d1ffe4a83121d5)
       '@tanstack/react-query':
         specifier: 5.87.4
         version: 5.87.4(react@19.1.4)
@@ -91,8 +91,8 @@ importers:
         specifier: 2.5.14
         version: 2.5.14
       '@sodax/skills':
-        specifier: 2.2.0-rc.7
-        version: 2.2.0-rc.7
+        specifier: 2.2.0-rc.8
+        version: 2.2.0-rc.8
       '@tailwindcss/vite':
         specifier: 4.3.3
         version: 4.3.3(vite@7.3.6(@types/node@22.18.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.20.5))
@@ -1954,19 +1954,19 @@ packages:
   '@socket.io/component-emitter@3.1.2':
     resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
 
-  '@sodax/bridge-api@2.2.0-rc.7':
-    resolution: {integrity: sha512-zhY4vMWbV4tHfJKKhzXWHPpETRio6xM/UV5GStXUOGdMkQ9Ymrcy+kpLv7Mjczn4g4h1b4guWvqAumRi8BGI3g==}
+  '@sodax/bridge-api@2.2.0-rc.8':
+    resolution: {integrity: sha512-ZfgcM0OJrfYqBmMyDh/zH0nNMPwi2LsyvkudbXnZurEdRQa4WtWLLRbbebKnBZB/tMjYjXLRgPY36nOclNLNrg==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/dapp-kit@2.2.0-rc.7':
-    resolution: {integrity: sha512-dRzTMDVOxQK5l/1+PgqYpmJJXjOKQY5eQnwBzzljkIzsg9iq9RZ6gykOlw88+M5VkzEnOyj1CAmWrKBsXv+DmA==}
+  '@sodax/dapp-kit@2.2.0-rc.8':
+    resolution: {integrity: sha512-I0oh7MGVIQdPeNr9B7P4Aimc16b7bO5qw27l39K7t4eP3TNG26ftJQXbOwign3c5ufHb8eLXZP5/GwhuBJrDjw==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       '@tanstack/react-query': 5.87.4
       react: 19.1.4
 
-  '@sodax/libs@2.2.0-rc.7':
-    resolution: {integrity: sha512-Uu064WRYT3uTLqsTNlDTxaUQ3iUPOsulGyPlZMt6uMFuPTetnlK9qt4bJItA2BWMR0Z6Lf1xZOwh+lHIFC/r4w==}
+  '@sodax/libs@2.2.0-rc.8':
+    resolution: {integrity: sha512-brMJAKLS5N64QlfK3YqMuJkgOQ6rwFiCKebpvIOWbn19QRM2+xBtquxlKNni3p8l+upa3P0oNBI3asVKwWIcbg==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       libsodium-wrappers-sumo: ^0.7.11
@@ -1974,28 +1974,28 @@ packages:
       libsodium-wrappers-sumo:
         optional: true
 
-  '@sodax/sdk@2.2.0-rc.7':
-    resolution: {integrity: sha512-g7/oVThtSsCa+XZNcsdT33gWCF7fdKxvcAmGD5N8R9OeThC2BsEGwfkc2+xBQdUgWHCNhj4+IGdshFGcnMp57w==}
+  '@sodax/sdk@2.2.0-rc.8':
+    resolution: {integrity: sha512-BdtXgjPOG8ZQyTBNN3Fo2S9KDtgitJPMtcqUo1nGBL6qkk3+wEBOjHSG+K2QQc5VdntFZyPgB4Iqf+5ycU+69A==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/skills@2.2.0-rc.7':
-    resolution: {integrity: sha512-g6yZzh8A4VKLZxsHqkwGMqVzATtN6n8A+Uv1o0jam4VvJGxXOnwEhDRrGEnAUd2BDjqtm7aLn6xlY5f7tQYI8A==}
+  '@sodax/skills@2.2.0-rc.8':
+    resolution: {integrity: sha512-q8VuSUMOKrNkw7q8djUVUyMf51D5eRgBkIM9EG0Kld02UEqYcjFu7dzy8II58Kz/yzKwJ9fYD3P4zoB5HSlZgg==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/swaps-api@2.2.0-rc.7':
-    resolution: {integrity: sha512-3r4hdtw1W8GUAF3t2QEp9hFIkhwMnv7doQXG/TtQUV5Iy1yKlHFdoZWkMyOFt3N0vpkur7bjRimW787i/j6VYQ==}
+  '@sodax/swaps-api@2.2.0-rc.8':
+    resolution: {integrity: sha512-G2/VjuIA1eLttBw3m/H8VCs8/aMHLyjqdJZrWN6E1VBQhpz4p5pyPtQ3u8zDddBlQ02+qHwW788KQIh6rIY6Hg==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/types@2.2.0-rc.7':
-    resolution: {integrity: sha512-2PpMguMzIcnObFT/rlUAOpdDMVXOsm3BolPZHNtV/N+8l0a6mycz8TAL9ddxvA4UXN5WWNtSeJTqY9UDTEkt2Q==}
+  '@sodax/types@2.2.0-rc.8':
+    resolution: {integrity: sha512-hbn+Prb9kpZltMbRSbv9/G6HIhpYD3umyejEWcts1YSZxv+uRV6y9p3Hh9A2VOzXAMsB8JaFx06I21CxC8LFzg==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/wallet-sdk-core@2.2.0-rc.7':
-    resolution: {integrity: sha512-VFIzraJYgDx3TIkE9KuFIZybU1lBNKslGUm1fBDcvVZkQN1aeHLkPUgf3fZW5bAjjaw6J0bBlj2tAwwZUEhW8w==}
+  '@sodax/wallet-sdk-core@2.2.0-rc.8':
+    resolution: {integrity: sha512-wTBjpRUR819yiZXLh8p4LN4Csbh6b5oFUamLpmhBJumuvng9CiFCCZMSGbKj+WiQi173/0O5GZTm9T/dtNC+iw==}
     engines: {node: '>=22.12.0'}
 
-  '@sodax/wallet-sdk-react@2.2.0-rc.7':
-    resolution: {integrity: sha512-sWrjxoehrfe867H1sP0KvNp5htzznFsCS+JSB39da7sUYGchByM1xJfsOOb7OyCrlNlEVhGoDcTxXKkg56UWpA==}
+  '@sodax/wallet-sdk-react@2.2.0-rc.8':
+    resolution: {integrity: sha512-OKSBhsHyH1MuEannrx2zaIp1OT8aU6RRNhBwtAVtenfkzPLO0JDF4Vb9HyMMDSrcujdGEeuyzccccy4VZCeGeQ==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       '@tanstack/react-query': 5.87.4
@@ -6655,12 +6655,12 @@ snapshots:
 
   '@coral-xyz/anchor-errors@0.30.1': {}
 
-  '@coral-xyz/anchor@0.30.1(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
+  '@coral-xyz/anchor@0.30.1(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)':
     dependencies:
       '@coral-xyz/anchor-errors': 0.30.1
-      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))
+      '@coral-xyz/borsh': 0.30.1(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))
       '@noble/hashes': 1.8.0
-      '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       bn.js: 5.2.5
       bs58: 4.0.1
       buffer-layout: 1.2.2
@@ -6675,11 +6675,12 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - encoding
+      - typescript
       - utf-8-validate
 
-  '@coral-xyz/borsh@0.30.1(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))':
+  '@coral-xyz/borsh@0.30.1(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))':
     dependencies:
-      '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       bn.js: 5.2.5
       buffer-layout: 1.2.2
 
@@ -6778,7 +6779,7 @@ snapshots:
     dependencies:
       '@albedo-link/intent': 0.12.0
       '@creit.tech/xbull-wallet-connect': 0.4.0
-      '@hot-wallet/sdk': 1.0.11(bufferutil@4.1.0)(near-api-js@7.2.0)(utf-8-validate@6.0.6)
+      '@hot-wallet/sdk': 1.0.11(bufferutil@4.1.0)(near-api-js@7.2.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@ledgerhq/hw-app-str': 7.0.4
       '@ledgerhq/hw-transport': 6.31.4
       '@ledgerhq/hw-transport-webusb': 6.29.4
@@ -6839,7 +6840,7 @@ snapshots:
 
   '@creit.tech/xbull-wallet-connect@0.4.0':
     dependencies:
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       tweetnacl: 1.0.3
       tweetnacl-util: 0.15.1
 
@@ -7103,13 +7104,13 @@ snapshots:
 
   '@hot-labs/near-connect@0.10.0': {}
 
-  '@hot-wallet/sdk@1.0.11(bufferutil@4.1.0)(near-api-js@7.2.0)(utf-8-validate@6.0.6)':
+  '@hot-wallet/sdk@1.0.11(bufferutil@4.1.0)(near-api-js@7.2.0)(typescript@5.9.2)(utf-8-validate@6.0.6)':
     dependencies:
       '@near-js/crypto': 1.4.2
       '@near-js/utils': 1.1.0
       '@near-wallet-selector/core': 8.10.2(near-api-js@7.2.0)
-      '@solana/wallet-adapter-base': 0.9.28(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))
-      '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/wallet-adapter-base': 0.9.28(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))
+      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       borsh: 2.0.0
       js-sha256: 0.11.1
       sha1: 1.1.1
@@ -7118,6 +7119,7 @@ snapshots:
       - bufferutil
       - encoding
       - near-api-js
+      - typescript
       - utf-8-validate
 
   '@injectivelabs/abacus-proto-ts-v2@1.17.5':
@@ -7700,7 +7702,7 @@ snapshots:
       gql.tada: 1.11.3(graphql@16.14.2)(typescript@5.9.2)
       graphql: 16.14.2
       poseidon-lite: 0.2.1
-      valibot: 1.4.2(typescript@5.9.2)
+      valibot: 1.5.0(typescript@5.9.2)
     transitivePeerDependencies:
       - '@gql.tada/svelte-support'
       - '@gql.tada/vue-support'
@@ -8862,16 +8864,16 @@ snapshots:
 
   '@socket.io/component-emitter@3.1.2': {}
 
-  '@sodax/bridge-api@2.2.0-rc.7(typescript@5.9.2)':
+  '@sodax/bridge-api@2.2.0-rc.8(typescript@5.9.2)':
     dependencies:
-      '@sodax/types': 2.2.0-rc.7
+      '@sodax/types': 2.2.0-rc.8
       valibot: 1.4.2(typescript@5.9.2)
     transitivePeerDependencies:
       - typescript
 
-  '@sodax/dapp-kit@2.2.0-rc.7(@tanstack/react-query@5.87.4(react@19.1.4))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(react@19.1.4)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
+  '@sodax/dapp-kit@2.2.0-rc.8(@tanstack/react-query@5.87.4(react@19.1.4))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(react@19.1.4)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
     dependencies:
-      '@sodax/sdk': 2.2.0-rc.7(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
+      '@sodax/sdk': 2.2.0-rc.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@tanstack/react-query': 5.87.4(react@19.1.4)
       react: 19.1.4
       viem: 2.29.2(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
@@ -8889,24 +8891,24 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@sodax/libs@2.2.0-rc.7(libsodium-wrappers-sumo@0.7.16)':
+  '@sodax/libs@2.2.0-rc.8(libsodium-wrappers-sumo@0.7.16)':
     optionalDependencies:
       libsodium-wrappers-sumo: 0.7.16
 
-  '@sodax/sdk@2.2.0-rc.7(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
+  '@sodax/sdk@2.2.0-rc.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.2.0
-      '@coral-xyz/anchor': 0.30.1(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@coral-xyz/anchor': 0.30.1(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@injectivelabs/networks': 1.18.14
       '@injectivelabs/sdk-ts': 1.18.14(bufferutil@4.1.0)(google-protobuf@3.21.4)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@mysten/sui': 2.23.2(typescript@5.9.2)
       '@pancakeswap/infinity-sdk': 1.0.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@pancakeswap/swap-sdk-core': 1.6.0(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@pancakeswap/v3-sdk': 3.10.0(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
-      '@sodax/bridge-api': 2.2.0-rc.7(typescript@5.9.2)
-      '@sodax/libs': 2.2.0-rc.7(libsodium-wrappers-sumo@0.7.16)
-      '@sodax/swaps-api': 2.2.0-rc.7(typescript@5.9.2)
-      '@sodax/types': 2.2.0-rc.7
+      '@sodax/bridge-api': 2.2.0-rc.8(typescript@5.9.2)
+      '@sodax/libs': 2.2.0-rc.8(libsodium-wrappers-sumo@0.7.16)
+      '@sodax/swaps-api': 2.2.0-rc.8(typescript@5.9.2)
+      '@sodax/types': 2.2.0-rc.8
       '@solana/spl-token': 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
       '@stellar/stellar-sdk': 15.1.0
@@ -8933,18 +8935,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@sodax/skills@2.2.0-rc.7': {}
+  '@sodax/skills@2.2.0-rc.8': {}
 
-  '@sodax/swaps-api@2.2.0-rc.7(typescript@5.9.2)':
+  '@sodax/swaps-api@2.2.0-rc.8(typescript@5.9.2)':
     dependencies:
-      '@sodax/types': 2.2.0-rc.7
+      '@sodax/types': 2.2.0-rc.8
       valibot: 1.4.2(typescript@5.9.2)
     transitivePeerDependencies:
       - typescript
 
-  '@sodax/types@2.2.0-rc.7': {}
+  '@sodax/types@2.2.0-rc.8': {}
 
-  '@sodax/wallet-sdk-core@2.2.0-rc.7(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
+  '@sodax/wallet-sdk-core@2.2.0-rc.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.2.0
       '@hot-labs/near-connect': 0.10.0
@@ -8953,8 +8955,8 @@ snapshots:
       '@injectivelabs/ts-types': 1.18.14
       '@injectivelabs/wallet-core': 1.18.14(bufferutil@4.1.0)(google-protobuf@3.21.4)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@mysten/sui': 2.23.2(typescript@5.9.2)
-      '@sodax/libs': 2.2.0-rc.7(libsodium-wrappers-sumo@0.7.16)
-      '@sodax/types': 2.2.0-rc.7
+      '@sodax/libs': 2.2.0-rc.8(libsodium-wrappers-sumo@0.7.16)
+      '@sodax/types': 2.2.0-rc.8
       '@solana/spl-token': 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/wallet-adapter-base': 0.9.26(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))
       '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
@@ -8982,7 +8984,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@sodax/wallet-sdk-react@2.2.0-rc.7(8cf8570f761c09a5a5d1ffe4a83121d5)':
+  '@sodax/wallet-sdk-react@2.2.0-rc.8(8cf8570f761c09a5a5d1ffe4a83121d5)':
     dependencies:
       '@creit.tech/stellar-wallets-kit': 1.9.5(d9ae1f505595e8f251ce8c1c33782fcb)
       '@hot-labs/near-connect': 0.10.0
@@ -8994,9 +8996,9 @@ snapshots:
       '@injectivelabs/wallet-cosmos': 1.18.14(bufferutil@4.1.0)(google-protobuf@3.21.4)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@mysten/dapp-kit-react': 2.1.15(@mysten/sui@2.23.2(typescript@5.9.2))(@types/react@19.1.13)(react@19.1.4)(typescript@5.9.2)
       '@mysten/sui': 2.23.2(typescript@5.9.2)
-      '@sodax/libs': 2.2.0-rc.7(libsodium-wrappers-sumo@0.7.16)
-      '@sodax/types': 2.2.0-rc.7
-      '@sodax/wallet-sdk-core': 2.2.0-rc.7(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
+      '@sodax/libs': 2.2.0-rc.8(libsodium-wrappers-sumo@0.7.16)
+      '@sodax/types': 2.2.0-rc.8
+      '@sodax/wallet-sdk-core': 2.2.0-rc.8(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(google-protobuf@3.21.4)(libsodium-wrappers-sumo@0.7.16)(starknet@8.9.2)(typescript@5.9.2)(utf-8-validate@6.0.6)(zod@3.22.4)
       '@solana/spl-token': 0.4.9(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/wallet-adapter-react': 0.15.35(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(bs58@6.0.0)(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(react-native@0.87.1(@babel/core@7.29.7)(@types/react@19.1.13)(bufferutil@4.1.0)(react@19.1.4)(utf-8-validate@6.0.6))(react@19.1.4)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
@@ -9201,15 +9203,16 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
-  '@solana/buffer-layout-utils@0.2.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
+  '@solana/buffer-layout-utils@0.2.0(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       bigint-buffer: 1.1.5
       bignumber.js: 9.3.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
+      - typescript
       - utf-8-validate
 
   '@solana/buffer-layout@4.0.1':
@@ -9936,7 +9939,7 @@ snapshots:
   '@solana/spl-token@0.4.9(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)
       '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)
       '@solana/web3.js': 1.98.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
@@ -9951,7 +9954,7 @@ snapshots:
   '@solana/spl-token@0.4.9(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)(utf-8-validate@6.0.6)':
     dependencies:
       '@solana/buffer-layout': 4.0.1
-      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+      '@solana/buffer-layout-utils': 0.2.0(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
       '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)
       '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6))(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.2)
       '@solana/web3.js': 1.98.4(bufferutil@4.1.0)(typescript@5.9.2)(utf-8-validate@6.0.6)
@@ -13669,7 +13672,7 @@ snapshots:
       '@noble/hashes': 1.8.0
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
-      abitype: 1.1.0(typescript@5.9.2)(zod@3.22.4)
+      abitype: 1.2.3(typescript@5.9.2)(zod@3.22.4)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.2
