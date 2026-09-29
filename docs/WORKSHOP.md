@@ -61,7 +61,7 @@ still see their shares and withdraw there. Deposits are tied to wallet + network
 | 0:17 | **M2** Execute deposit + shares | Paste prompt M2. **Everyone makes a real ~$5 deposit.** Check: "Your position" shows shares. |
 | 0:32 | **M3** Vault browser | Paste prompt M3. Check: 4 vault cards with live APR / TVL. |
 | 0:42 | **M4** Withdraw | Paste prompt M4. Check: withdraw quote. Optional: withdraw for real. |
-| 0:54 | Wrap (6 min) | The API option (`solution` toggle), rebranding with one prompt, docs and skills, Q&A. |
+| 0:54 | Wrap (6 min) | The hosted `solution`: its list + modal UX and the API option (toggle). Rebranding with one prompt, docs and skills, Q&A. |
 
 If time is short, M2 is the one that matters. Move people to `checkpoint/m2` so they can deposit.
 
@@ -113,7 +113,7 @@ src/brand/brand.config.ts and the files in public/brand/. Keep contrast accessib
 ## 5. Catch-up
 
 Branches: `checkpoint/m1` (M1 done), `checkpoint/m2` (M1 + M2), `checkpoint/m3`, `checkpoint/m4`, `solution`
-(everything, plus the SDK/API toggle).
+(everything with a polished list + modal UX, plus the SDK/API toggle).
 
 ```bash
 # From a clone (keeps your work in a stash)
@@ -137,14 +137,14 @@ Continue with the next milestone's prompt from there.
 |---|---|
 | `pnpm install` very slow | It's a big dependency tree (wallet SDKs). Use a phone hotspot, or pair with someone who installed at home. |
 | Blank page, console says "No QueryClient set" or shows two Reacts | An agent changed `vite.config.ts` / providers or added a package. `git checkout vite.config.ts src/providers.tsx package.json pnpm-lock.yaml && pnpm install`. |
-| `pnpm check` fails in `check-versions` | An agent ran `pnpm add @sodax/...`. Restore `package.json` / `pnpm-lock.yaml` from git and `pnpm install`. |
+| `pnpm check` fails in `check-versions`, or the footer doesn't say "SDK 2.2.0-rc.7" | An agent ran `pnpm add @sodax/...`. Restore `package.json` / `pnpm-lock.yaml` from git and `pnpm install`. |
 | Wallet not listed | Install/unlock a browser wallet extension and reload. Only EVM wallets are supported. |
 | Button says "Switch to Base" | The wallet is on another network. Click it and approve in the wallet. |
 | "No route right now" | Solvers are rebalancing. It retries automatically; press Retry after a few seconds. |
 | "Amount too low" | Deposit at least ~$2 (see today's `pnpm preflight` minimum). |
 | "Simulation reverted" | The tx would fail: not enough balance, gas or shares. Top up gas on the source network. |
 | Deposit stuck on "Delivering to Sonic" / "Solver fills" | Usually under 2 minutes. Keep the dialog open; the tx link shows it's on-chain. If it's still pending after 5 minutes, check the hosted solution's position and flag a facilitator. |
-| "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card (or the hosted solution) shows them. |
+| "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card shows them; "Your vaults" on the hosted solution lists every vault and network. |
 | Agent built "leverage positions" | Wrong product. Revert, and tell it: "Vaults only; read AGENTS.md scope." |
 | Codex doesn't see the MCP servers | Run `codex mcp add sodax-marketing --url https://marketing.sodax.com/mcp` (and `sodax-docs` with `https://docs.sodax.com/mcp`). |
 

@@ -1,3 +1,4 @@
+import { SDK_VERSION } from '@sodax/sdk';
 import { assetUrl, brand } from '@/brand/brand.config';
 
 export function Footer() {
@@ -7,17 +8,21 @@ export function Footer() {
         <span>
           © {new Date().getFullYear()} {brand.appName}. Vault deposits carry smart contract and market risk.
         </span>
-        {brand.poweredBySodax && (
-          <a
-            href={brand.links.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-foreground"
-          >
-            Powered by
-            <img src={assetUrl('brand/logo-on-light.svg')} alt="SODAX" className="h-4 w-auto" />
-          </a>
-        )}
+        <div className="flex items-center gap-4">
+          {/* The installed @sodax/sdk release: a quick check that nothing upgraded the pinned packages. */}
+          <span className="text-xs text-subtle-foreground">SDK {SDK_VERSION}</span>
+          {brand.poweredBySodax && (
+            <a
+              href={brand.links.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-foreground"
+            >
+              Powered by
+              <img src={assetUrl('brand/logo-on-light.svg')} alt="SODAX" className="h-4 w-auto" />
+            </a>
+          )}
+        </div>
       </div>
     </footer>
   );

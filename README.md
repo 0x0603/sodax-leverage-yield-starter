@@ -64,7 +64,7 @@ codex mcp add sodax-docs --url https://docs.sodax.com/mcp
 | `checkpoint/m2` | + execute deposit, stepper, "Your position" |
 | `checkpoint/m3` | + vault browser |
 | `checkpoint/m4` | + withdraw |
-| `solution` | Complete reference build, plus an SDK/API transport toggle |
+| `solution` | Complete reference build with a polished UX (vault list → deposit/withdraw modal, USD values, "Your vaults" across networks), plus an SDK/API transport toggle |
 
 ## Scripts
 
