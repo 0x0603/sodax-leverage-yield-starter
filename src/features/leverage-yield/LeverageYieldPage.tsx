@@ -1,4 +1,3 @@
-import { LiveBuilds } from '@/components/workshop/LiveBuilds';
 import { NextPrompt } from '@/components/workshop/NextPrompt';
 
 /**
@@ -15,7 +14,6 @@ export function LeverageYieldPage() {
         Wallet connection, the SODAX SDK and the theme are already wired. You build the vault UI in{' '}
         <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">src/features/leverage-yield/</code>.
       </p>
-      <LiveBuilds />
     </div>
   );
 }

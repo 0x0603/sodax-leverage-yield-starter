@@ -106,7 +106,7 @@ build it:
 | `checkpoint/m4` | M1–M4: withdraw | <https://sodax-leverage-yield-starter-git-checkpoint-m4-icon-foundation.vercel.app> |
 | `solution` | Everything, with a polished list + modal UX and the SDK/API toggle | <https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app> |
 
-The starter page links them too. To continue from one locally:
+The prompt card at the top of the app links the builds still ahead of you. To continue from one locally:
 
 ```bash
 # From a clone (keeps your work in a stash)

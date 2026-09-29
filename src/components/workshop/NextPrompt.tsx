@@ -2,6 +2,7 @@ import { CheckIcon, CopyIcon, TerminalIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { LiveBuilds } from './LiveBuilds';
 import { bonusPrompt, type Milestone, milestonePrompt } from './prompts';
 
 const code = 'rounded bg-muted px-1.5 py-0.5 font-mono text-xs';
@@ -9,6 +10,7 @@ const code = 'rounded bg-muted px-1.5 py-0.5 font-mono text-xs';
 /**
  * Workshop helper: the prompt to paste into your coding agent next, straight from docs/WORKSHOP.md §3.
  * `next={1}` on main, `next={2}` on checkpoint/m1 … `next="done"` on checkpoint/m4. Not rendered on `solution`.
+ * Also links the live builds still ahead: every checkpoint and the solution on main, only the solution after M4.
  */
 export function NextPrompt({ next }: { next: Milestone | 'done' }) {
   const step = next === 'done' ? bonusPrompt() : milestonePrompt(next);
@@ -49,6 +51,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
             <span className="font-semibold">Check:</span> {step.check}
           </p>
         )}
+        <LiveBuilds from={next === 'done' ? 5 : next} />
         <p className="text-xs text-subtle-foreground">
           From <code className={code}>docs/WORKSHOP.md</code>.
           {next !== 'done' && ' Your agent moves this card on when a milestone is done.'}

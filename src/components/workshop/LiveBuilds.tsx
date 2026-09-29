@@ -2,15 +2,16 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { LIVE_BUILDS } from './builds';
 
-/** Links to the hosted build of every checkpoint and the solution, for a look before (or while) you build. */
-export function LiveBuilds() {
+/** Links to the hosted builds from milestone `from` on (5 = only the solution), so you can see what comes next. */
+export function LiveBuilds({ from }: { from: number }) {
+  const builds = LIVE_BUILDS.filter(build => build.milestone >= from);
+  if (builds.length === 0) return null;
+
   return (
-    <div className="flex flex-col items-center gap-3 text-center">
-      <p className="text-sm text-muted-foreground">
-        Want to see where you're headed? Each milestone's reference build is live:
-      </p>
-      <ul className="flex flex-wrap justify-center gap-2">
-        {LIVE_BUILDS.map(build => {
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="text-sm text-muted-foreground">See it live:</span>
+      <ul className="flex flex-wrap gap-2">
+        {builds.map(build => {
           const final = build.branch === 'solution';
           return (
             <li key={build.branch}>
