@@ -17,7 +17,7 @@ feature.
 Requires **Node.js ≥ 22.12** and pnpm (`corepack enable`).
 
 ```bash
-git clone https://github.com/icon-project/sodax-leverage-yield-starter.git
+git clone https://github.com/gosodax/sodax-leverage-yield-starter.git
 cd sodax-leverage-yield-starter
 pnpm install
 pnpm dev

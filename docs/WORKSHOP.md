@@ -25,7 +25,7 @@ Copy this into the invite:
 >    *Fastest option:* USDC plus a little S on **Sonic** (no cross-network delivery step).
 > 5. Clone and run the starter (the install is large, so do it now):
 >    ```bash
->    git clone https://github.com/icon-project/sodax-leverage-yield-starter.git
+>    git clone https://github.com/gosodax/sodax-leverage-yield-starter.git
 >    cd sodax-leverage-yield-starter
 >    pnpm install
 >    pnpm dev
@@ -48,7 +48,7 @@ Copy this into the invite:
 | During | Keep the catch-up commands and troubleshooting table on screen. |
 
 The **hosted solution** (GitHub Pages build of branch `solution`, at
-`https://icon-project.github.io/sodax-leverage-yield-starter/` once Pages is enabled and the "Deploy solution to
+`https://gosodax.github.io/sodax-leverage-yield-starter/` once Pages is enabled and the "Deploy solution to
 Pages" workflow has run) is the safety net: anyone whose code breaks can
 still see their shares and withdraw there. Deposits are tied to wallet + network, not to the app.
 
@@ -125,7 +125,7 @@ pnpm dev
 ```bash
 # From a fork or template copy that lacks the branches
 git stash -u
-git fetch https://github.com/icon-project/sodax-leverage-yield-starter.git checkpoint/m2
+git fetch https://github.com/gosodax/sodax-leverage-yield-starter.git checkpoint/m2
 git switch -c m2 FETCH_HEAD
 ```
 
