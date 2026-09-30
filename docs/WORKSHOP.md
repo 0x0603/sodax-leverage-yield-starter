@@ -1,7 +1,8 @@
 # Workshop: build SODAX Leverage Yield with a coding agent
 
 In about an hour you'll use a coding agent (Claude Code, Codex, Cursor, …) to add pooled vault deposits to a React
-app, then make a real deposit into a SODAX vault. You leave with a working vault app and vault shares of your own.
+app, make a real deposit into a SODAX vault, then open a pull request to show what you built. You leave with a
+working vault app and vault shares of your own.
 
 The finished app is live at **<https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app>** (branch `solution`). Use it to compare with yours, or to see
 your shares and withdraw if your own build breaks. The build after each milestone is live too (see §4).
@@ -22,32 +23,33 @@ your shares and withdraw if your own build breaks. The build after each mileston
 4. Fund it with **at least $10 of USDC plus ~$2 of ETH for gas on Base** (Arbitrum works too). You'll deposit ~$5
    and withdraw it again; gas is needed for the approval, the deposit and the withdrawal.
    *Fastest option:* USDC plus a little S on **Sonic** (no cross-network delivery step).
-5. Clone and run the starter (the install is large, so do it now):
+5. **Fork** [gosodax/sodax-leverage-yield-starter](https://github.com/gosodax/sodax-leverage-yield-starter/fork) and
+   **untick "Copy the `main` branch only"**, so the checkpoint branches come with your fork. You'll open your pull
+   request from it (§5).
+6. Clone your fork and run it (the install is large, so do it now):
    ```bash
-   git clone https://github.com/gosodax/sodax-leverage-yield-starter.git
+   git clone https://github.com/<your-username>/sodax-leverage-yield-starter.git
    cd sodax-leverage-yield-starter
    pnpm install
    pnpm dev
    ```
    Open http://localhost:5173, click **Connect wallet**, and check that your address appears top right.
 
-Use `git clone`. Don't use "Use this template" or fork (or tick "Include all branches" if you do): the catch-up
-branches only come with a full clone.
-
 ## 2. Agenda
 
 | Time | Block | What you do |
 |---|---|---|
-| 0:00 | Intro (5 min) | How the vaults work (see §6), the risks, where your shares live. Open the app and connect your wallet. |
+| 0:00 | Intro (5 min) | How the vaults work (see §7), the risks, where your shares live. Open the app and connect your wallet. |
 | 0:05 | **M1** Deposit form + live quote | Paste prompt M1. Check: 5 USDC → ≈ 4.5 lsodaSUSDS quote. |
 | 0:17 | **M2** Execute deposit + shares | Paste prompt M2, then make a real ~$5 deposit. Check: your new shares show. |
 | 0:32 | **M3** Vault browser | Paste prompt M3. Check: 4 vault cards with live APR / TVL. |
 | 0:42 | **M4** Withdraw | Paste prompt M4. Check: withdraw quote. Optional: withdraw for real. |
-| 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, the SODAX docs for agents, Q&A. |
+| 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, the SODAX docs for agents, open your PR (§5), Q&A. |
 
 **Two ways to build it.** With a capable agent (Claude Opus 5.5, Codex Sol 6 or similar), paste the **All at once**
 prompt (§3) instead of M1–M4, then walk through its checks. Go milestone by milestone if you use a lighter
-model or want to see each step come together; each prompt is small enough for one short session.
+model or want to see each step come together. Only M1 points your agent at the SODAX guide, so run M2–M4 in the
+same session, or give a fresh session the guide link again.
 
 Falling behind? M2 is the one that matters. Switch to `checkpoint/m2` (see §4) so you can still deposit.
 
@@ -121,14 +123,14 @@ build it:
 The prompt card at the top of the app links the builds still ahead of you. To continue from one locally:
 
 ```bash
-# From a clone (keeps your work in a stash)
+# Keeps your work in a stash
 git stash -u
 git switch checkpoint/m2        # or m1 / m3 / m4 / solution
 pnpm dev
 ```
 
 ```bash
-# From a fork or template copy that lacks the branches
+# If your fork has no checkpoint branches ("Copy the main branch only" was ticked)
 git stash -u
 git fetch https://github.com/gosodax/sodax-leverage-yield-starter.git checkpoint/m2
 git switch -c m2 FETCH_HEAD
@@ -139,7 +141,20 @@ Continue with the next milestone's prompt from there. The app shows it at the to
 If your code breaks after you deposited, your shares are safe: they belong to your wallet and network, not to the
 app. Open the [hosted solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (or switch to `solution`) to see them and withdraw.
 
-## 5. Troubleshooting
+## 5. Show your solution
+
+1. Commit to a branch on your fork:
+   ```bash
+   git switch -c my-solution
+   git add -A && git commit -m "feat: my leverage yield vault app"
+   git push -u origin my-solution
+   ```
+2. Open a pull request from that branch to
+   [gosodax/sodax-leverage-yield-starter](https://github.com/gosodax/sodax-leverage-yield-starter/pulls) (base
+   `main`). In the description, include a screenshot or short video, your deposit transaction link, the agent you
+   used, and anything you built beyond the milestones.
+
+## 6. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
@@ -156,7 +171,7 @@ app. Open the [hosted solution](https://sodax-leverage-yield-starter-git-solutio
 | Agent built "leverage positions" | Wrong product. Revert, and tell it: "Vaults only; read AGENTS.md scope." |
 | Agent doesn't know the SODAX SDK | Send it to <https://docs.sodax.com/ai-integration-guide>. |
 
-## 6. How it works
+## 7. How it works
 
 - **What:** SODAX Leverage Yield vaults are pooled ERC-4626 vaults on Sonic. Each holds a liquid staking token
   (weETH, wstETH, JitoSOL, sUSDS), borrows against it and re-stakes up to a target LTV. That multiplies the

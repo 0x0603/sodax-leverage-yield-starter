@@ -65,7 +65,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
                 toggle), or rebrand it: fill in the two placeholders, then paste.
               </>
             ) : (
-              'Paste this into your coding agent. A fresh session per milestone works best.'
+              'Paste this into your coding agent. Only M1 links the SODAX guide, so keep M2–M4 in the same session (or give a new one the guide link again).'
             )}
           </CardDescription>
         </div>
