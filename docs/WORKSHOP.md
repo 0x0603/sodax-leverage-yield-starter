@@ -64,8 +64,7 @@ shares, every vault with live APR / TVL, and a withdraw quote.
 
 ```
 Build the SODAX Leverage Yield vault feature with a nice, polished UI: browse the vaults, deposit from any supported
-network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide as your guide. Run
-pnpm check when you're done.
+network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide as your guide.
 ```
 
 Or step by step:
@@ -75,35 +74,35 @@ Or step by step:
 ```
 Using https://docs.sodax.com/ai-integration-guide, add a deposit form for the SODAX Leverage Yield vaults: pick a
 vault, a source network and token, enter an amount, and show a live quote of the vault shares I'd get and the
-minimum I'd accept. Don't send anything yet. Run pnpm check, then tell me how to verify it in the browser.
+minimum I'd accept. Don't send anything yet. Then tell me how to verify it in the browser.
 ```
 
 **M2**
 
 ```
 Make the deposit work: when I confirm, ask my wallet for approval if needed, submit the deposit, show each step's
-progress with explorer links, and show my vault shares once it fills. Run pnpm check.
+progress with explorer links, and show my vault shares once it fills.
 ```
 
 **M3**
 
 ```
 Add a vault browser: a card per vault with live APR, TVL, share price, leverage and health, plus my shares in it.
-Its Deposit button selects that vault in the deposit form. Run pnpm check.
+Its Deposit button selects that vault in the deposit form.
 ```
 
 **M4**
 
 ```
 Add withdraw: from the shares I hold, quote and withdraw back to a token on a network I choose, with the same
-progress steps. Run pnpm check.
+progress steps.
 ```
 
 **Bonus: rebrand**
 
 ```
 Rebrand this app for <Company> using <brand site or colours>. Only change src/brand/theme.css,
-src/brand/brand.config.ts and the files in public/brand/. Keep contrast accessible. Run pnpm check.
+src/brand/brand.config.ts and the files in public/brand/. Keep contrast accessible.
 ```
 
 ## 4. Catch-up
