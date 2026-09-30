@@ -7,6 +7,22 @@ import { bonusPrompt, type Milestone, milestonePrompt } from './prompts';
 
 const code = 'rounded bg-muted px-1.5 py-0.5 font-mono text-xs';
 
+/** The guide on GitHub (main; the checkpoints carry the same file), so participants can open it from the app. */
+const WORKSHOP_URL = 'https://github.com/gosodax/sodax-leverage-yield-starter/blob/main/docs/WORKSHOP.md';
+
+function WorkshopLink({ section }: { section?: string }) {
+  return (
+    <a
+      href={section ? `${WORKSHOP_URL}#${section}` : WORKSHOP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-medium text-primary hover:underline"
+    >
+      <code className={code}>docs/WORKSHOP.md</code>
+    </a>
+  );
+}
+
 /**
  * Workshop helper: the prompt to paste into your coding agent next, straight from docs/WORKSHOP.md §3.
  * `next={1}` on main, `next={2}` on checkpoint/m1 … `next="done"` on checkpoint/m4. Not rendered on `solution`.
@@ -43,7 +59,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
           <PromptBox prompt={step.prompt} />
         ) : (
           <p className="text-sm text-muted-foreground">
-            Open <code className={code}>docs/WORKSHOP.md</code> and give your agent the next prompt from §3.
+            Open <WorkshopLink section="3-prompts" /> and give your agent the next prompt from §3.
           </p>
         )}
         {step?.check && (
@@ -53,8 +69,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
         )}
         <LiveBuilds from={next === 'done' ? 5 : next} />
         <p className="text-xs text-subtle-foreground">
-          From <code className={code}>docs/WORKSHOP.md</code>.
-          {next !== 'done' && ' Your agent moves this card on when a milestone is done.'}
+          From <WorkshopLink />.{next !== 'done' && ' Your agent moves this card on when a milestone is done.'}
         </p>
       </CardContent>
     </Card>
