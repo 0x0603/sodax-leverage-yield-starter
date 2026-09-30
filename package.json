@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "check": "tsc --noEmit && biome check . && tsx scripts/check-versions.ts && tsx scripts/check-skills.ts",
+    "check": "tsc --noEmit && biome check . && tsx scripts/check-versions.ts && tsx scripts/check-skills.ts && tsx scripts/check-format.ts",
     "preflight": "tsx scripts/preflight.ts",
     "sync:skills": "tsx scripts/check-skills.ts --write"
   },

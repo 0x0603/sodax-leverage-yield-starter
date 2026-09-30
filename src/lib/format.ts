@@ -11,11 +11,16 @@ import { formatUnits, parseUnits } from 'viem';
 const RAY_PER_PERCENT = 10n ** 25n; // 1e27 / 100
 const WAD = 10n ** 18n;
 
-/** bigint → human string, e.g. formatTokenAmount(5_000_000n, 6) === '5'. */
+/**
+ * bigint → human string, e.g. formatTokenAmount(5_000_000n, 6) === '5'. Rounds down, so a balance, share count or
+ * minimum is never overstated. Below 1 it keeps `maxFractionDigits` significant digits instead, so small amounts
+ * stay readable: 0.000375 shares → '0.000375', not '0.0003'.
+ */
 export function formatTokenAmount(amount: bigint | undefined, decimals: number, maxFractionDigits = 4): string {
   if (amount === undefined) return '–';
   const [whole, fraction = ''] = formatUnits(amount, decimals).split('.');
-  const trimmed = fraction.slice(0, maxFractionDigits).replace(/0+$/, '');
+  const leadingZeros = whole === '0' ? (fraction.match(/^0*/)?.[0].length ?? 0) : 0;
+  const trimmed = fraction.slice(0, leadingZeros + maxFractionDigits).replace(/0+$/, '');
   const wholeFormatted = BigInt(whole).toLocaleString('en-US');
   return trimmed ? `${wholeFormatted}.${trimmed}` : wholeFormatted;
 }
@@ -36,16 +41,18 @@ export function parseTokenAmount(value: string, decimals: number): bigint | unde
   }
 }
 
-/** RAY rate → percent string, e.g. 5.87e25 → '5.87%'. Handles negative rates. */
+/**
+ * RAY rate → percent string, e.g. 5.87e25 → '5.87%'. Rounds to the nearest value (half away from zero), as other
+ * SODAX apps do: 6.1666% → '6.17%'. Handles negative rates.
+ */
 export function formatRayPercent(ray: bigint | undefined, fractionDigits = 2): string {
   if (ray === undefined) return '–';
   const scale = 10n ** BigInt(fractionDigits);
-  const scaled = (ray * scale) / RAY_PER_PERCENT;
-  const negative = scaled < 0n;
-  const abs = negative ? -scaled : scaled;
+  const negative = ray < 0n;
+  const abs = ((negative ? -ray : ray) * scale + RAY_PER_PERCENT / 2n) / RAY_PER_PERCENT;
   const whole = abs / scale;
   const fraction = (abs % scale).toString().padStart(fractionDigits, '0');
-  return `${negative ? '-' : ''}${whole}${fractionDigits > 0 ? `.${fraction}` : ''}%`;
+  return `${negative && abs > 0n ? '-' : ''}${whole}${fractionDigits > 0 ? `.${fraction}` : ''}%`;
 }
 
 /** WAD multiplier → string, e.g. 4.56e18 → '4.56'. */

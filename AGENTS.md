@@ -37,7 +37,7 @@ This app runs on **mainnet with real funds**. There is no testnet vault.
 ```bash
 pnpm install     # once
 pnpm dev         # http://localhost:5173
-pnpm check       # typecheck + lint + version/skill guards. Run after every change.
+pnpm check       # typecheck + lint + version/skill/format guards. Run after every change.
 pnpm build       # production build
 pnpm preflight   # read-only health check of the SODAX API, RPCs and quote routes
 ```
