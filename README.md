@@ -33,8 +33,8 @@ Use `git clone` (or tick "Include all branches" when using the template) so you 
 
 The repo gives your agent no SODAX-specific help beyond [`AGENTS.md`](AGENTS.md) (what this repo is, where the
 feature goes, the real-funds rules; `CLAUDE.md` imports it). Everything about the SDK comes from SODAX itself: point
-your agent at the [SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide), which sets up the
-official SODAX skills and MCP. Then ask it, for example:
+your agent at the [SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide). Then ask it, for
+example:
 
 ```
 Build the SODAX Leverage Yield vault feature with a nice, polished UI. Use https://docs.sodax.com/ai-integration-guide.

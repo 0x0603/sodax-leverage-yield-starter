@@ -55,8 +55,7 @@ Falling behind? M2 is the one that matters. Switch to `checkpoint/m2` (see §4) 
 
 The app shows the next prompt at the top of the page, with a Copy button. They are also here, to paste as-is into
 any agent. The repo gives your agent no SODAX-specific help: the prompts send it to the
-[SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide), which sets up the official SODAX skills and
-MCP.
+[SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide).
 
 With a capable agent, one prompt builds the whole app. Check: a live deposit quote, a real ~$5 deposit that shows your
 shares, every vault with live APR / TVL, and a withdraw quote.
@@ -65,8 +64,8 @@ shares, every vault with live APR / TVL, and a withdraw quote.
 
 ```
 Build the SODAX Leverage Yield vault feature with a nice, polished UI: browse the vaults, deposit from any supported
-network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide (its SODAX skills and
-MCP) as your guide. Run pnpm check when you're done.
+network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide as your guide. Run
+pnpm check when you're done.
 ```
 
 Or step by step:
@@ -74,10 +73,9 @@ Or step by step:
 **M1**
 
 ```
-Using https://docs.sodax.com/ai-integration-guide (set up its SODAX skills and MCP first), add a deposit form for the
-SODAX Leverage Yield vaults: pick a vault, a source network and token, enter an amount, and show a live quote of the
-vault shares I'd get and the minimum I'd accept. Don't send anything yet. Run pnpm check, then tell me how to verify
-it in the browser.
+Using https://docs.sodax.com/ai-integration-guide, add a deposit form for the SODAX Leverage Yield vaults: pick a
+vault, a source network and token, enter an amount, and show a live quote of the vault shares I'd get and the
+minimum I'd accept. Don't send anything yet. Run pnpm check, then tell me how to verify it in the browser.
 ```
 
 **M2**
@@ -157,7 +155,7 @@ app. Open the [hosted solution](https://sodax-leverage-yield-starter-git-solutio
 | Deposit stuck on "Delivering to Sonic" / "Solver fills" | Usually under 2 minutes. Keep the dialog open; the tx link shows it's on-chain. If it's still pending after 5 minutes, check your position on the [hosted solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) and ask a facilitator. |
 | "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card shows them; "Your vaults" on the [hosted solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) lists every vault and network. |
 | Agent built "leverage positions" | Wrong product. Revert, and tell it: "Vaults only; read AGENTS.md scope." |
-| Agent doesn't know the SODAX SDK | Send it to <https://docs.sodax.com/ai-integration-guide> and ask it to set up the SODAX skills and MCP from there. |
+| Agent doesn't know the SODAX SDK | Send it to <https://docs.sodax.com/ai-integration-guide>. |
 
 ## 6. How it works
 
