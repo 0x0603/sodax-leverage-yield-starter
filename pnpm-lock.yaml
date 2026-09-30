@@ -90,9 +90,6 @@ importers:
       '@biomejs/biome':
         specifier: 2.5.14
         version: 2.5.14
-      '@sodax/skills':
-        specifier: 2.2.0-rc.8
-        version: 2.2.0-rc.8
       '@tailwindcss/vite':
         specifier: 4.3.3
         version: 4.3.3(vite@7.3.6(@types/node@22.18.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.20.5))
@@ -1976,10 +1973,6 @@ packages:
 
   '@sodax/sdk@2.2.0-rc.8':
     resolution: {integrity: sha512-BdtXgjPOG8ZQyTBNN3Fo2S9KDtgitJPMtcqUo1nGBL6qkk3+wEBOjHSG+K2QQc5VdntFZyPgB4Iqf+5ycU+69A==}
-    engines: {node: '>=22.12.0'}
-
-  '@sodax/skills@2.2.0-rc.8':
-    resolution: {integrity: sha512-q8VuSUMOKrNkw7q8djUVUyMf51D5eRgBkIM9EG0Kld02UEqYcjFu7dzy8II58Kz/yzKwJ9fYD3P4zoB5HSlZgg==}
     engines: {node: '>=22.12.0'}
 
   '@sodax/swaps-api@2.2.0-rc.8':
@@ -8934,8 +8927,6 @@ snapshots:
       - typescript
       - utf-8-validate
       - zod
-
-  '@sodax/skills@2.2.0-rc.8': {}
 
   '@sodax/swaps-api@2.2.0-rc.8(typescript@5.9.2)':
     dependencies:

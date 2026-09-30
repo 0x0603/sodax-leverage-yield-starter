@@ -31,31 +31,16 @@ Use `git clone` (or tick "Include all branches" when using the template) so you 
 
 ## Build the feature with your agent
 
-The repo ships agent guidance for Claude Code, Codex, Cursor and others:
-
-| File | For |
-|---|---|
-| [`AGENTS.md`](AGENTS.md) | Repo rules every agent reads (Codex, Cursor, Copilot, …). `CLAUDE.md` imports it. |
-| [`.agents/skills/sodax-leverage-yield/`](.agents/skills/sodax-leverage-yield/SKILL.md) | The vault feature skill: mental model, verified API surface, gotchas, [milestones](.agents/skills/sodax-leverage-yield/references/milestones.md), [REST API recipes](.agents/skills/sodax-leverage-yield/references/api-recipes.md). Copied to `.claude/skills/` for Claude Code. |
-| `.mcp.json`, `.cursor/mcp.json`, `.codex/config.toml` | MCP servers: `sodax-marketing` (brand tokens, logos, voice) and `sodax-docs` (SODAX docs search). No auth. |
-| `node_modules/@sodax/skills` | Official SODAX skills, version-matched to the SDK. |
-
-Then ask your agent, for example:
+The repo gives your agent no SODAX-specific help beyond [`AGENTS.md`](AGENTS.md) (what this repo is, where the
+feature goes, the real-funds rules; `CLAUDE.md` imports it). Everything about the SDK comes from SODAX itself: point
+your agent at the [SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide), which sets up the
+official SODAX skills and MCP. Then ask it, for example:
 
 ```
-Read AGENTS.md and .agents/skills/sodax-leverage-yield/SKILL.md, then implement Milestone 1 from
-.agents/skills/sodax-leverage-yield/references/milestones.md.
+Build the SODAX Leverage Yield vault feature with a nice, polished UI. Use https://docs.sodax.com/ai-integration-guide.
 ```
 
-**Codex:** project MCP config loads only for trusted projects. If the servers don't show up:
-
-```bash
-codex mcp add sodax-marketing --url https://marketing.sodax.com/mcp
-```
-
-```bash
-codex mcp add sodax-docs --url https://docs.sodax.com/mcp
-```
+The workshop guide ([`docs/WORKSHOP.md`](docs/WORKSHOP.md)) has that prompt plus a milestone-by-milestone version.
 
 ## Branches
 
@@ -73,10 +58,9 @@ codex mcp add sodax-docs --url https://docs.sodax.com/mcp
 | Command | What |
 |---|---|
 | `pnpm dev` | Dev server on :5173 |
-| `pnpm check` | Typecheck, lint, `@sodax/*` version guard, skill-copy guard |
+| `pnpm check` | Typecheck, lint, `@sodax/*` version guard, display-format guard |
 | `pnpm build` | Production build to `dist/` |
 | `pnpm preflight` | Read-only health check: SODAX API, RPCs, vault reads, deposit quote matrix and minimum amount |
-| `pnpm sync:skills` | Copy the canonical skill to `.claude/skills/` after editing it |
 
 ## Project structure
 
@@ -101,7 +85,7 @@ All brand decisions live in three places:
 2. **`src/brand/brand.config.ts`**: app name, tagline, logo paths, links, and the "Powered by SODAX" credit.
 3. **`public/brand/`**: logo and favicon files.
 
-The defaults are SODAX's brand tokens from the [SODAX marketing MCP](https://marketing.sodax.com/mcp). Or just ask
+The defaults are SODAX's brand tokens. Or just ask
 your agent: *"Rebrand this app for Acme using acme.com's colours. Only touch src/brand and public/brand."*
 
 ## Configuration

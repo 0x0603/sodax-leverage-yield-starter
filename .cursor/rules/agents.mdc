@@ -1,7 +1,0 @@
----
-description: Project guidance for the SODAX Leverage Yield starter
-alwaysApply: true
----
-
-Read `AGENTS.md` (repo rules) and `.agents/skills/sodax-leverage-yield/SKILL.md` (vault feature guide) before
-writing code. Milestones: `.agents/skills/sodax-leverage-yield/references/milestones.md`.

@@ -5,7 +5,7 @@
  * that read these variables. To whitelabel, change the values below (and src/brand/brand.config.ts,
  * public/brand/*). Nothing else needs to change.
  *
- * Defaults: SODAX brand tokens from https://marketing.sodax.com/mcp (sodax_get_design_tokens).
+ * Defaults: SODAX brand tokens.
  * Warm cherry + cream palette. Yellow is an accent only, never a surface. Buttons are pills.
  */
 :root {

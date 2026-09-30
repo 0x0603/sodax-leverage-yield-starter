@@ -16,9 +16,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome check --write .",
-    "check": "tsc --noEmit && biome check . && tsx scripts/check-versions.ts && tsx scripts/check-skills.ts && tsx scripts/check-format.ts",
-    "preflight": "tsx scripts/preflight.ts",
-    "sync:skills": "tsx scripts/check-skills.ts --write"
+    "check": "tsc --noEmit && biome check . && tsx scripts/check-versions.ts && tsx scripts/check-format.ts",
+    "preflight": "tsx scripts/preflight.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.2.8",
@@ -48,7 +47,6 @@
   "devDependencies": {
     "@bangjelkoski/vite-plugin-node-polyfills": "0.0.2",
     "@biomejs/biome": "2.5.14",
-    "@sodax/skills": "2.2.0-rc.8",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "22.18.1",
     "@types/react": "19.1.13",

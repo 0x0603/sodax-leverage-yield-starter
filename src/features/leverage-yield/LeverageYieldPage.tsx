@@ -3,8 +3,7 @@ import { NextPrompt } from '@/components/workshop/NextPrompt';
 /**
  * Mount point for the Leverage Yield feature. Replace the rest of this page with the vault UI.
  *
- * Start here: docs/WORKSHOP.md → Milestone 1. Agents: read AGENTS.md and
- * .agents/skills/sodax-leverage-yield/SKILL.md first.
+ * Start here: docs/WORKSHOP.md.
  */
 export function LeverageYieldPage() {
   return (

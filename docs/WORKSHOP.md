@@ -40,10 +40,10 @@ branches only come with a full clone.
 |---|---|---|
 | 0:00 | Intro (5 min) | How the vaults work (see §6), the risks, where your shares live. Open the app and connect your wallet. |
 | 0:05 | **M1** Deposit form + live quote | Paste prompt M1. Check: 5 USDC → ≈ 4.5 lsodaSUSDS quote. |
-| 0:17 | **M2** Execute deposit + shares | Paste prompt M2, then make a real ~$5 deposit. Check: "Your position" shows shares. |
+| 0:17 | **M2** Execute deposit + shares | Paste prompt M2, then make a real ~$5 deposit. Check: your new shares show. |
 | 0:32 | **M3** Vault browser | Paste prompt M3. Check: 4 vault cards with live APR / TVL. |
 | 0:42 | **M4** Withdraw | Paste prompt M4. Check: withdraw quote. Optional: withdraw for real. |
-| 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, docs and skills, Q&A. |
+| 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, the SODAX docs for agents, Q&A. |
 
 **Two ways to build it.** With a capable agent (Claude Opus 5.5, Codex Sol 6 or similar), paste the **All at once**
 prompt (§3) instead of M1–M4, then walk through its checks. Go milestone by milestone if you use a lighter
@@ -54,7 +54,9 @@ Falling behind? M2 is the one that matters. Switch to `checkpoint/m2` (see §4) 
 ## 3. Prompts
 
 The app shows the next prompt at the top of the page, with a Copy button. They are also here, to paste as-is into
-any agent. Start each milestone in a fresh agent session: the repo's AGENTS.md and skill carry the context.
+any agent. The repo gives your agent no SODAX-specific help: the prompts send it to the
+[SODAX AI integration guide](https://docs.sodax.com/ai-integration-guide), which sets up the official SODAX skills and
+MCP.
 
 With a capable agent, one prompt builds the whole app. Check: a live deposit quote, a real ~$5 deposit that shows your
 shares, every vault with live APR / TVL, and a withdraw quote.
@@ -64,7 +66,7 @@ shares, every vault with live APR / TVL, and a withdraw quote.
 ```
 Build the SODAX Leverage Yield vault feature with a nice, polished UI: browse the vaults, deposit from any supported
 network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide (its SODAX skills and
-MCP) as your guide rather than this repo's workshop skill. Run pnpm check when you're done.
+MCP) as your guide. Run pnpm check when you're done.
 ```
 
 Or step by step:
@@ -72,35 +74,31 @@ Or step by step:
 **M1**
 
 ```
-Read AGENTS.md and .agents/skills/sodax-leverage-yield/SKILL.md. Then implement Milestone 1 (deposit form with
-a live quote) from .agents/skills/sodax-leverage-yield/references/milestones.md in src/features/leverage-yield/.
-Follow its build list and pass check exactly. Don't change providers, wallet wiring or config other than
-src/config/workshop.ts. Run pnpm check, then tell me how to verify it in the browser.
+Using https://docs.sodax.com/ai-integration-guide (set up its SODAX skills and MCP first), add a deposit form for the
+SODAX Leverage Yield vaults: pick a vault, a source network and token, enter an amount, and show a live quote of the
+vault shares I'd get and the minimum I'd accept. Don't send anything yet. Run pnpm check, then tell me how to verify
+it in the browser.
 ```
 
 **M2**
 
 ```
-Implement Milestone 2 (execute the deposit and show my shares) from
-.agents/skills/sodax-leverage-yield/references/milestones.md. Follow the deposit flow in SKILL.md exactly: build
-the payload at confirm time, check allowance, approve and wait for the receipt if needed, then vaultSwap. Never use
-0 as minOutputAmount. Add the stepper with explorer links and the "Your position" card. Run pnpm check.
+Make the deposit work: when I confirm, ask my wallet for approval if needed, submit the deposit, show each step's
+progress with explorer links, and show my vault shares once it fills. Run pnpm check.
 ```
 
 **M3**
 
 ```
-Implement Milestone 3 (vault browser) from .agents/skills/sodax-leverage-yield/references/milestones.md: a card
-per vault with live APR, TVL, share price, leverage, health and my shares across SOURCE_CHAINS, plus a Deposit
-button that selects the vault in the deposit form. Run pnpm check.
+Add a vault browser: a card per vault with live APR, TVL, share price, leverage and health, plus my shares in it.
+Its Deposit button selects that vault in the deposit form. Run pnpm check.
 ```
 
 **M4**
 
 ```
-Implement Milestone 4 (withdraw) from .agents/skills/sodax-leverage-yield/references/milestones.md. Use the
-withdraw quote payload from SKILL.md (token_src is the vault on Sonic). No approval step. Open it from the
-"Your position" card for the network the shares are held under. Run pnpm check.
+Add withdraw: from the shares I hold, quote and withdraw back to a token on a network I choose, with the same
+progress steps. Run pnpm check.
 ```
 
 **Bonus: rebrand**
@@ -159,7 +157,7 @@ app. Open the [hosted solution](https://sodax-leverage-yield-starter-git-solutio
 | Deposit stuck on "Delivering to Sonic" / "Solver fills" | Usually under 2 minutes. Keep the dialog open; the tx link shows it's on-chain. If it's still pending after 5 minutes, check your position on the [hosted solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) and ask a facilitator. |
 | "Where are my shares?" | In the SODAX hub wallet on Sonic, per source network, never in MetaMask. The "Your position" card shows them; "Your vaults" on the [hosted solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) lists every vault and network. |
 | Agent built "leverage positions" | Wrong product. Revert, and tell it: "Vaults only; read AGENTS.md scope." |
-| Codex doesn't see the MCP servers | Run `codex mcp add sodax-marketing --url https://marketing.sodax.com/mcp` (and `sodax-docs` with `https://docs.sodax.com/mcp`). |
+| Agent doesn't know the SODAX SDK | Send it to <https://docs.sodax.com/ai-integration-guide> and ask it to set up the SODAX skills and MCP from there. |
 
 ## 6. How it works
 
