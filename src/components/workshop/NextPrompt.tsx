@@ -2,8 +2,9 @@ import { CheckIcon, CopyIcon, TerminalIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { LiveBuilds } from './LiveBuilds';
-import { bonusPrompt, type Milestone, milestonePrompt } from './prompts';
+import { bonusPrompt, type Milestone, milestonePrompt, oneShotPrompt } from './prompts';
 
 const code = 'rounded bg-muted px-1.5 py-0.5 font-mono text-xs';
 
@@ -23,15 +24,28 @@ function WorkshopLink({ section }: { section?: string }) {
   );
 }
 
+type Mode = 'one-shot' | 'steps';
+
 /**
  * Workshop helper: the prompt to paste into your coding agent next, straight from docs/WORKSHOP.md §3.
  * `next={1}` on main, `next={2}` on checkpoint/m1 … `next="done"` on checkpoint/m4. Not rendered on `solution`.
+ * On main it offers two ways in: the one-shot prompt (the default, for capable agents) or Milestone 1.
  * Also links the live builds still ahead: every checkpoint and the solution on main, only the solution after M4.
  */
 export function NextPrompt({ next }: { next: Milestone | 'done' }) {
-  const step = next === 'done' ? bonusPrompt() : milestonePrompt(next);
-  const eyebrow =
-    next === 'done' ? 'All four milestones built' : next === 1 ? 'Start here · 1 of 4' : `Next · ${next} of 4`;
+  const oneShot = next === 1 ? oneShotPrompt() : undefined;
+  const [mode, setMode] = useState<Mode>(oneShot ? 'one-shot' : 'steps');
+  const showOneShot = oneShot !== undefined && mode === 'one-shot';
+
+  const step = showOneShot ? oneShot : next === 'done' ? bonusPrompt() : milestonePrompt(next);
+  const eyebrow = showOneShot
+    ? 'Start here · the whole app'
+    : next === 'done'
+      ? 'All four milestones built'
+      : next === 1
+        ? 'Start here · 1 of 4'
+        : `Next · ${next} of 4`;
+  const title = !step ? 'Open the workshop guide' : showOneShot ? step.title : `${step.label}: ${step.title}`;
 
   return (
     <Card className="border-dashed">
@@ -39,11 +53,13 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
         <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
           <TerminalIcon className="size-5" />
         </div>
-        <div className="flex min-w-0 flex-col gap-1">
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{eyebrow}</p>
-          <CardTitle>{step ? `${step.label}: ${step.title}` : 'Open the workshop guide'}</CardTitle>
+          <CardTitle>{title}</CardTitle>
           <CardDescription>
-            {next === 'done' ? (
+            {showOneShot ? (
+              'For a capable coding agent (Claude Opus 5.5, Codex Sol 6 or similar): one prompt builds the whole feature. Prefer to go step by step, or using a lighter model? Switch to milestones.'
+            ) : next === 'done' ? (
               <>
                 Compare yours with the <code className={code}>solution</code> branch (vault list + modal, SDK/API
                 toggle), or rebrand it: fill in the two placeholders, then paste.
@@ -55,6 +71,7 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
+        {oneShot && <ModeToggle mode={mode} onChange={setMode} />}
         {step ? (
           <PromptBox prompt={step.prompt} />
         ) : (
@@ -73,6 +90,35 @@ export function NextPrompt({ next }: { next: Milestone | 'done' }) {
         </p>
       </CardContent>
     </Card>
+  );
+}
+
+const MODES: { value: Mode; label: string }[] = [
+  { value: 'one-shot', label: 'All at once' },
+  { value: 'steps', label: 'Milestone by milestone' },
+];
+
+function ModeToggle({ mode, onChange }: { mode: Mode; onChange: (mode: Mode) => void }) {
+  return (
+    <fieldset className="flex w-fit gap-1 rounded-full border bg-muted p-1">
+      <legend className="sr-only">How to build it</legend>
+      {MODES.map(option => (
+        <button
+          key={option.value}
+          type="button"
+          aria-pressed={mode === option.value}
+          onClick={() => onChange(option.value)}
+          className={cn(
+            'rounded-full px-3 py-1 text-sm font-medium transition-colors',
+            mode === option.value
+              ? 'bg-primary text-primary-foreground'
+              : 'text-muted-foreground hover:text-foreground',
+          )}
+        >
+          {option.label}
+        </button>
+      ))}
+    </fieldset>
   );
 }
 

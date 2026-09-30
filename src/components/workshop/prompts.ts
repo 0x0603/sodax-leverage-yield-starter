@@ -3,6 +3,7 @@ import workshop from '../../../docs/WORKSHOP.md?raw';
 /**
  * Workshop prompts, read from docs/WORKSHOP.md at build time so the in-app card never drifts from the runbook.
  * §2 (agenda) gives each milestone's title and check; §3 gives the prompt, in a fenced block under "**M1**" etc.
+ * (and "**All at once**" for the one-shot prompt, "**Bonus: rebrand**" for the bonus).
  * Keep those headings, fences and agenda rows in that shape; if they stop matching, the card falls back to a link.
  */
 
@@ -48,4 +49,15 @@ export function milestonePrompt(milestone: Milestone): WorkshopPrompt | undefine
 export function bonusPrompt(): WorkshopPrompt | undefined {
   const prompt = promptBlock('Bonus: rebrand');
   return prompt ? { label: 'Bonus', title: 'Rebrand the app', prompt } : undefined;
+}
+
+/** The one-shot prompt: all four milestones in one go, for capable agents. Its check is the line above it in §3. */
+export function oneShotPrompt(): WorkshopPrompt | undefined {
+  const prompt = promptBlock('All at once');
+  if (!prompt) return undefined;
+  const check = workshop
+    .match(/Check:\s*((?:[^\n]|\n(?!\n))+?)\n\n\*\*All at once\*\*/)?.[1]
+    ?.replace(/\s+/g, ' ')
+    .trim();
+  return { label: 'All at once', title: 'Build the whole vault app in one prompt', check, prompt };
 }

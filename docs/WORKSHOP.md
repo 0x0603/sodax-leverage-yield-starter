@@ -45,12 +45,29 @@ branches only come with a full clone.
 | 0:42 | **M4** Withdraw | Paste prompt M4. Check: withdraw quote. Optional: withdraw for real. |
 | 0:54 | Wrap (6 min) | The finished [solution](https://sodax-leverage-yield-starter-git-solution-icon-foundation.vercel.app) (list + modal UX, SDK/API toggle), rebranding with one prompt, docs and skills, Q&A. |
 
+**Two ways to build it.** With a capable agent (Claude Opus 5.5, Codex Sol 6 or similar), paste the **All at once**
+prompt (§3) instead of M1–M4, then walk through its checks. Go milestone by milestone if you use a lighter
+model or want to see each step come together; each prompt is small enough for one short session.
+
 Falling behind? M2 is the one that matters. Switch to `checkpoint/m2` (see §4) so you can still deposit.
 
 ## 3. Prompts
 
 The app shows the next prompt at the top of the page, with a Copy button. They are also here, to paste as-is into
 any agent. Start each milestone in a fresh agent session: the repo's AGENTS.md and skill carry the context.
+
+With a capable agent, one prompt builds the whole app. Check: a live deposit quote, a real ~$5 deposit that shows your
+shares, every vault with live APR / TVL, and a withdraw quote.
+
+**All at once**
+
+```
+Build the SODAX Leverage Yield vault feature with a nice, polished UI: browse the vaults, deposit from any supported
+network and token, see my shares and withdraw. Use https://docs.sodax.com/ai-integration-guide (its SODAX skills and
+MCP) as your guide rather than this repo's workshop skill. Run pnpm check when you're done.
+```
+
+Or step by step:
 
 **M1**
 

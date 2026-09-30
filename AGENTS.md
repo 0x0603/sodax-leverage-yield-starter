@@ -97,4 +97,5 @@ The feature is built in four milestones (see `docs/WORKSHOP.md` and
 
 On `main` and the checkpoints, `LeverageYieldPage.tsx` shows `<NextPrompt next={N} />` (from
 `@/components/workshop/NextPrompt`): the prompt the participant pastes next, read from `docs/WORKSHOP.md`. Keep it
-at the top of the page. When you finish milestone N, set `next={N + 1}`, or `next="done"` after Milestone 4.
+at the top of the page. When you finish milestone N, set `next={N + 1}`, or `next="done"` after Milestone 4
+(or after building the whole feature in one go).
