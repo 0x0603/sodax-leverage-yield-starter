@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { NextPrompt } from '@/components/workshop/NextPrompt';
 import { DEFAULT_VAULT_NAME, SOURCE_CHAINS, type SourceChainKey } from '@/config/workshop';
 import { chainName } from '@/lib/chains';
 import { useEvmWallet } from '@/wallet';
@@ -34,8 +33,6 @@ export function LeverageYieldPage() {
 
   return (
     <div className="flex flex-col gap-10">
-      <NextPrompt next="done" />
-
       {address && (
         <Positions
           vaults={ordered}
