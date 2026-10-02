@@ -18,16 +18,18 @@ feature.
 
 Requires **Node.js ≥ 22.12** and pnpm (`corepack enable`).
 
+[Fork the repo](https://github.com/gosodax/sodax-leverage-yield-starter/fork) and untick "Copy the `main` branch
+only", so the checkpoint branches come with it. Then clone your fork:
+
 ```bash
-git clone https://github.com/gosodax/sodax-leverage-yield-starter.git
+git clone https://github.com/<your-username>/sodax-leverage-yield-starter.git
 cd sodax-leverage-yield-starter
 pnpm install
 pnpm dev
 ```
 
-Open http://localhost:5173 and click **Connect wallet**.
-
-Use `git clone` (or tick "Include all branches" when using the template) so you get the checkpoint branches.
+Open http://localhost:5173 and click **Connect wallet**. Workshop participants show their build with a pull request
+from the fork ([docs/WORKSHOP.md](docs/WORKSHOP.md) §5).
 
 ## Build the feature with your agent
 

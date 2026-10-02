@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["exec", "vite", "--no-open"],
       "port": 5173
+    },
+    {
+      "name": "oneshot-trace",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--dir", "/private/tmp/claude-501/-Users-robi-Development-icon-foundation-sodax-leverage-yield-starter/5f2590c1-b3be-44d1-a012-e5f5c51cfac2/scratchpad/oneshot", "exec", "vite", "--no-open", "--port", "5180", "--strictPort"],
+      "port": 5180
     }
   ]
 }
