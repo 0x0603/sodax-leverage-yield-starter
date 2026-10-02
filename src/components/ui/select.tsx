@@ -11,14 +11,16 @@ export function SelectTrigger({ className, children, ...props }: ComponentProps<
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        'flex h-11 w-full items-center justify-between gap-2 rounded-sm border border-input bg-white px-3 text-sm shadow-[inset_1px_1px_2px_rgba(0,0,0,.25)] focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:flex [&>span]:items-center [&>span]:gap-2',
+        'flex h-9 w-full items-center justify-between gap-2 rounded-none border border-input bg-window pr-3 pl-2 text-[13px] focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 [&>span]:flex [&>span]:items-center [&>span]:gap-2',
         className,
       )}
       {...props}
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 text-muted-foreground" />
+        <span className="xp-combo-arrow">
+          <ChevronDownIcon className="size-3.5" strokeWidth={3} />
+        </span>
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -34,9 +36,9 @@ export function SelectContent({
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         position={position}
-        sideOffset={4}
+        sideOffset={1}
         className={cn(
-          'z-50 max-h-80 min-w-[var(--radix-select-trigger-width)] overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-lg',
+          'xp-menu z-50 max-h-80 min-w-[var(--radix-select-trigger-width)] overflow-y-auto text-popover-foreground',
           className,
         )}
         {...props}
@@ -51,7 +53,7 @@ export function SelectItem({ className, children, ...props }: ComponentProps<typ
   return (
     <SelectPrimitive.Item
       className={cn(
-        'relative flex cursor-pointer select-none items-center gap-2 rounded-sm py-2 pl-3 pr-8 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex cursor-pointer select-none items-center gap-2 py-1.5 pr-8 pl-2 text-[13px] outline-none data-[highlighted]:bg-selection data-[highlighted]:text-selection-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}
       {...props}

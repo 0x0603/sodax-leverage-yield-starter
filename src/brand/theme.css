@@ -1,57 +1,64 @@
 /*
- * Brand theme: the ONLY place brand colours, fonts and radii live.
+ * Brand theme: the ONLY place brand colours, fonts and radii live (src/brand/xp.css holds the
+ * Windows XP chrome built on top of them: title bars, taskbar, task pane, Bliss desktop).
  *
  * Components use semantic Tailwind classes (bg-primary, text-muted-foreground, rounded-lg, font-display…)
  * that read these variables. To whitelabel, change the values below (and src/brand/brand.config.ts,
  * public/brand/*). Nothing else needs to change.
  *
- * Theme: Windows XP "Luna" blue. Square-ish, beveled, Tahoma.
+ * Theme: Windows XP "Luna" blue. Beige dialog faces, white content, Tahoma, Trebuchet title bars.
  */
 :root {
   /* Surfaces */
-  --background: #ece9d8; /* classic window/control face */
+  --background: #ece9d8; /* dialog / control face */
   --foreground: #000000;
   --card: #ece9d8;
   --card-foreground: #000000;
-  --popover: #ece9d8;
+  --popover: #ffffff; /* menus are white */
   --popover-foreground: #000000;
+  --window: #ffffff; /* explorer content, list views, text fields */
 
   /* Brand */
-  --primary: #245edc; /* xp button/titlebar blue */
-  --primary-light: #5b8def; /* top bevel highlight for gradients */
-  --primary-hover: #1941a5; /* pressed/darker */
+  --primary: #0054e3; /* luna blue */
+  --primary-light: #3d95ff;
+  --primary-hover: #003dd7;
   --primary-foreground: #ffffff;
-  --secondary: #d4d0c8; /* classic gray button face */
-  --secondary-light: #ffffff; /* top bevel highlight */
-  --secondary-foreground: #000000;
-  --accent: #ffc20e; /* xp flag yellow: accents on primary surfaces only */
-  --accent-foreground: #0a246a;
+  --secondary: #d6dff7; /* task pane body */
+  --secondary-light: #ffffff;
+  --secondary-foreground: #215dc6; /* task pane link */
+  --accent: #f99736; /* xp orange */
+  --accent-foreground: #000000;
+  --selection: #316ac5; /* highlighted menu item / selected row */
+  --selection-foreground: #ffffff;
+  --link: #0066cc;
 
   /* Neutrals */
-  --muted: #d4d0c8;
+  --muted: #f4f3ee;
   --muted-foreground: #4d4d4d;
-  --subtle-foreground: #6d6d6d;
-  --border: #716f64; /* beveled edge, dark side */
-  --input: #7f9db9; /* classic xp textbox border */
-  --ring: #3169c6;
+  --subtle-foreground: #7a7a7a;
+  --border: #aca899; /* control edge */
+  --border-light: #d0d0bf; /* group box */
+  --input: #7f9db9; /* textbox / combobox edge */
+  --ring: #316ac5;
 
-  /* Hero band (title bar: primary surface with light text) */
-  --hero: #0a246a;
+  /* Hero band (welcome screen: primary surface with light text) */
+  --hero: #3a62d0;
   --hero-foreground: #ffffff;
-  --hero-muted: #9db9eb;
-  --hero-accent: #ffc20e;
+  --hero-muted: #d6e2ff;
+  --hero-accent: #ffc94a;
 
   /* Status */
-  --destructive: #c83c3c;
+  --destructive: #c4301a;
   --destructive-foreground: #ffffff;
-  --destructive-muted: #fde8e8;
-  --success: #2e8b2e;
-  --success-muted: #e6f4e6;
-  --notice: #ffffcc; /* classic xp tooltip yellow */
+  --destructive-muted: #fde8e4;
+  --success: #2a7d1a;
+  --success-muted: #e3f5dc;
+  --notice: #ffffe1; /* tooltip / balloon yellow */
 
   /* Shape and type */
   --radius: 8px;
   --font-sans: Tahoma, Verdana, Geneva, sans-serif;
-  --font-display: Tahoma, Verdana, Geneva, sans-serif;
-  --font-accent: Tahoma, Verdana, Geneva, sans-serif;
+  --font-display: "Trebuchet MS", Tahoma, sans-serif;
+  --font-accent: "Trebuchet MS", Tahoma, sans-serif;
+  --font-title: "Trebuchet MS", Tahoma, sans-serif;
 }

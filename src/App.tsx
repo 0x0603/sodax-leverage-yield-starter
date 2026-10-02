@@ -1,5 +1,4 @@
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
+import { Desktop } from '@/components/layout/Desktop';
 import { Hero } from '@/components/layout/Hero';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { LeverageYieldPage } from '@/features/leverage-yield/LeverageYieldPage';
@@ -7,16 +6,12 @@ import { LeverageYieldPage } from '@/features/leverage-yield/LeverageYieldPage';
 export function App() {
   return (
     <TooltipProvider>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <Hero />
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-            <LeverageYieldPage />
-          </div>
-        </main>
-        <Footer />
-      </div>
+      <Desktop>
+        <Hero />
+        <div className="px-4 py-6 sm:px-6">
+          <LeverageYieldPage />
+        </div>
+      </Desktop>
     </TooltipProvider>
   );
 }

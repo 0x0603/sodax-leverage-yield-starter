@@ -17,10 +17,7 @@ export function Tooltip({
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
           sideOffset={6}
-          className={cn(
-            'z-50 max-w-xs rounded-md bg-foreground px-3 py-2 text-xs text-background shadow-md',
-            className,
-          )}
+          className={cn('xp-tooltip z-50 max-w-xs px-2 py-1 text-xs', className)}
           {...props}
         >
           {content}

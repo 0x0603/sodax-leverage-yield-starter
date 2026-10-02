@@ -2,9 +2,10 @@ import { InfoIcon } from 'lucide-react';
 import { maxUint256 } from 'viem';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip } from '@/components/ui/tooltip';
+import { SafeIcon } from '@/components/xp/icons';
+import { TitleButton, Window } from '@/components/xp/Window';
 import { formatBps, formatRayPercent, formatTokenAmount, formatWad } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { formatUsd, TokenBadge } from './parts';
@@ -63,12 +64,23 @@ export function VaultCard({
   const hf = position?.healthFactor;
 
   return (
-    <Card className="group flex flex-col overflow-hidden transition-shadow hover:shadow-md">
-      <div className="flex items-start justify-between gap-3 p-5 pb-4">
+    <Window
+      title={`${meta.assetSymbol} Vault`}
+      icon={<SafeIcon className="size-4" />}
+      controls={
+        <Tooltip
+          content={`${meta.shareSymbol}: pooled ${meta.assetSymbol}${meta.lsdLabel ? ` (${meta.lsdLabel})` : ''}, levered up on Sonic.`}
+        >
+          <TitleButton kind="help" title={undefined} />
+        </Tooltip>
+      }
+      bodyClassName="gap-3 p-3"
+    >
+      <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <TokenBadge symbol={meta.assetSymbol} className="size-11 text-base" />
           <div className="flex flex-col">
-            <span className="font-display text-xl font-bold leading-tight">{meta.assetSymbol}</span>
+            <span className="font-title text-xl font-bold leading-tight">{meta.assetSymbol}</span>
             <span className="text-xs text-muted-foreground">
               {meta.shareSymbol}
               {meta.lsdLabel && ` · ${meta.lsdLabel}`}
@@ -79,7 +91,12 @@ export function VaultCard({
           {isLoading ? (
             <Skeleton className="h-8 w-20" />
           ) : (
-            <span className={cn('text-3xl font-bold tabular-nums', negative ? 'text-destructive' : 'text-primary')}>
+            <span
+              className={cn(
+                'font-title text-3xl font-bold tabular-nums',
+                negative ? 'text-destructive' : 'text-primary',
+              )}
+            >
               {formatRayPercent(aprRay)}
             </span>
           )}
@@ -96,78 +113,78 @@ export function VaultCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-y bg-secondary/40 px-5 py-4 sm:grid-cols-4">
-        <Stat label="TVL" hint="Total assets the vault manages.">
-          {tvl === undefined ? (
-            <Skeleton className="h-5 w-16" />
-          ) : (
-            <span title={`${formatTokenAmount(tvl, meta.assetDecimals)} ${meta.assetSymbol}`}>
-              {formatUsd(toUsd(tvl, meta.assetDecimals, assetPrice), true)}
-              <span className="block text-xs font-normal text-muted-foreground">
-                {formatTokenAmount(tvl, meta.assetDecimals, 2)} {meta.assetSymbol}
+      <fieldset className="xp-groupbox">
+        <legend>Vault statistics</legend>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-3 xl:grid-cols-4">
+          <Stat label="TVL" hint="Total assets the vault manages.">
+            {tvl === undefined ? (
+              <Skeleton className="h-5 w-16" />
+            ) : (
+              <span title={`${formatTokenAmount(tvl, meta.assetDecimals)} ${meta.assetSymbol}`}>
+                {formatUsd(toUsd(tvl, meta.assetDecimals, assetPrice), true)}
+                <span className="block text-xs font-normal text-muted-foreground">
+                  {formatTokenAmount(tvl, meta.assetDecimals, 2)} {meta.assetSymbol}
+                </span>
               </span>
+            )}
+          </Stat>
+          <Stat
+            label="Exposure"
+            hint={`Exposure to ${meta.assetSymbol} per unit deposited (1 + borrowed multiple), at the target LTV of ${formatBps(apr?.targetLtvBps)}.`}
+          >
+            {apr ? `${formatWad(exposureWad(apr.leverageMultiplierWad))}×` : <Skeleton className="h-5 w-12" />}
+            {position && (
+              <span className="block text-xs font-normal text-muted-foreground">LTV {formatBps(position.ltv)}</span>
+            )}
+          </Stat>
+          <Stat label="Health" hint="The vault's Aave health factor. Below 1.00 the position can be liquidated.">
+            {hf === undefined ? (
+              <Skeleton className="h-5 w-12" />
+            ) : (
+              <Badge variant={healthTone(hf)} className="mt-0.5">
+                {hf === maxUint256 ? 'No debt' : formatWad(hf)}
+              </Badge>
+            )}
+          </Stat>
+          <Stat label="Share price" hint={`${meta.assetSymbol} redeemable for one ${meta.shareSymbol} share.`}>
+            {pricePerShare === undefined ? (
+              <Skeleton className="h-5 w-16" />
+            ) : (
+              <>
+                {formatTokenAmount(pricePerShare, meta.assetDecimals, 4)}
+                <span className="block text-xs font-normal text-muted-foreground">{meta.assetSymbol}</span>
+              </>
+            )}
+          </Stat>
+        </div>
+      </fieldset>
+
+      <div className="xp-sunken flex items-baseline justify-between gap-2 px-2 py-1.5 text-[13px]">
+        <span className="text-muted-foreground">Your shares:</span>
+        {!address ? (
+          <span className="text-subtle-foreground">Connect to see</span>
+        ) : holdings.isLoading ? (
+          <Skeleton className="h-5 w-24" />
+        ) : holdings.total > 0n ? (
+          <span className="text-right font-bold tabular-nums">
+            {formatTokenAmount(holdings.total, SHARE_DECIMALS)}
+            <span className="ml-1 font-normal text-muted-foreground">
+              ≈ {formatUsd(toUsd(myAssets, meta.assetDecimals, assetPrice))}
             </span>
-          )}
-        </Stat>
-        <Stat
-          label="Exposure"
-          hint={`Exposure to ${meta.assetSymbol} per unit deposited (1 + borrowed multiple), at the target LTV of ${formatBps(apr?.targetLtvBps)}.`}
-        >
-          {apr ? `${formatWad(exposureWad(apr.leverageMultiplierWad))}×` : <Skeleton className="h-5 w-12" />}
-          {position && (
-            <span className="block text-xs font-normal text-muted-foreground">LTV {formatBps(position.ltv)}</span>
-          )}
-        </Stat>
-        <Stat label="Health" hint="The vault's Aave health factor. Below 1.00 the position can be liquidated.">
-          {hf === undefined ? (
-            <Skeleton className="h-5 w-12" />
-          ) : (
-            <Badge variant={healthTone(hf)} className="mt-0.5">
-              {hf === maxUint256 ? 'No debt' : formatWad(hf)}
-            </Badge>
-          )}
-        </Stat>
-        <Stat label="Share price" hint={`${meta.assetSymbol} redeemable for one ${meta.shareSymbol} share.`}>
-          {pricePerShare === undefined ? (
-            <Skeleton className="h-5 w-16" />
-          ) : (
-            <>
-              {formatTokenAmount(pricePerShare, meta.assetDecimals, 4)}
-              <span className="block text-xs font-normal text-muted-foreground">{meta.assetSymbol}</span>
-            </>
-          )}
-        </Stat>
+          </span>
+        ) : (
+          <span className="text-subtle-foreground">None yet</span>
+        )}
       </div>
 
-      <div className="flex flex-1 flex-col justify-between gap-4 p-5">
-        <div className="flex items-baseline justify-between text-sm">
-          <span className="text-muted-foreground">Your shares</span>
-          {!address ? (
-            <span className="text-subtle-foreground">Connect to see</span>
-          ) : holdings.isLoading ? (
-            <Skeleton className="h-5 w-24" />
-          ) : holdings.total > 0n ? (
-            <span className="text-right font-semibold tabular-nums">
-              {formatTokenAmount(holdings.total, SHARE_DECIMALS)}
-              <span className="ml-1 font-normal text-muted-foreground">
-                ≈ {formatUsd(toUsd(myAssets, meta.assetDecimals, assetPrice))}
-              </span>
-            </span>
-          ) : (
-            <span className="text-subtle-foreground">None yet</span>
-          )}
-        </div>
-        <div className="flex gap-2">
-          <Button className="flex-1" onClick={onDeposit}>
-            Deposit
+      <div className="mt-auto flex justify-end gap-2">
+        <Button onClick={onDeposit}>Deposit…</Button>
+        {holdings.total > 0n && (
+          <Button variant="outline" onClick={onWithdraw}>
+            Withdraw…
           </Button>
-          {holdings.total > 0n && (
-            <Button variant="outline" className="flex-1" onClick={onWithdraw}>
-              Withdraw
-            </Button>
-          )}
-        </div>
+        )}
       </div>
-    </Card>
+    </Window>
   );
 }

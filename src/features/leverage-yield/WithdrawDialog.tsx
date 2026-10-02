@@ -202,7 +202,7 @@ export function WithdrawDialog({
 
   return (
     <Dialog open={open} onOpenChange={next => (phase === 'signing' ? undefined : onOpenChange(next))}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-lg" windowTitle={`Withdraw - ${meta.shareSymbol}`}>
         <DialogHeader>
           <DialogTitle className="font-display text-2xl">Withdraw from {meta.shareSymbol}</DialogTitle>
           <DialogDescription>

@@ -3,6 +3,7 @@ import { CheckIcon, CircleIcon, ExternalLinkIcon, Loader2Icon, MinusIcon, XIcon 
 import type { ReactNode } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tooltip } from '@/components/ui/tooltip';
+import { XpProgress } from '@/components/xp/Window';
 import { DEFAULT_SLIPPAGE_BPS, MAX_SLIPPAGE_BPS, SOURCE_CHAINS, type SourceChainKey } from '@/config/workshop';
 import { chainLogo, chainName, explorerTxUrl } from '@/lib/chains';
 import { formatBps, shortenAddress } from '@/lib/format';
@@ -91,7 +92,7 @@ export function TokenSelect({
 export function FieldLabel({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-2 text-xs font-medium text-muted-foreground">
-      <span className="uppercase tracking-wide">{children}</span>
+      <span>{children}</span>
       {aside}
     </div>
   );
@@ -108,10 +109,7 @@ export function SlippagePicker({ value, onChange }: { value: number; onChange: (
           type="button"
           aria-pressed={value === bps}
           onClick={() => onChange(bps)}
-          className={cn(
-            'rounded-sm border px-2.5 py-0.5 text-xs font-medium transition-colors',
-            value === bps ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-secondary',
-          )}
+          className="xp-btn h-6 min-w-12 px-2 text-xs aria-pressed:font-bold"
         >
           {formatBps(bps)}
         </button>
@@ -156,7 +154,7 @@ export function StepList({ steps }: { steps: Step[] }) {
           <li
             key={step.id}
             className={cn(
-              'flex items-start gap-3 rounded-md border px-3 py-2.5 text-sm transition-colors',
+              'flex items-start gap-3 rounded-[3px] border border-border-light bg-window px-3 py-2.5 text-[13px] transition-colors',
               step.state === 'active' && 'border-primary/40 bg-secondary',
               step.state === 'error' && 'border-destructive/40 bg-destructive-muted',
               step.state === 'skipped' && 'opacity-60',
@@ -168,6 +166,7 @@ export function StepList({ steps }: { steps: Step[] }) {
                 {i + 1}. {step.label}
               </span>
               {step.detail && <span className="text-xs text-muted-foreground">{step.detail}</span>}
+              {step.state === 'active' && <XpProgress label={step.label} className="mt-1 w-full max-w-48" />}
             </div>
             {url && (
               <a

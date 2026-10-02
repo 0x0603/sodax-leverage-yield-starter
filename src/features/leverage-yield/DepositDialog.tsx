@@ -287,7 +287,7 @@ export function DepositDialog({
 
   return (
     <Dialog open={open} onOpenChange={next => (phase === 'signing' ? undefined : onOpenChange(next))}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-lg" windowTitle={`Deposit - ${meta.shareSymbol}`}>
         <DialogHeader>
           <DialogTitle className="font-display text-2xl">Deposit into {meta.shareSymbol}</DialogTitle>
           <DialogDescription>

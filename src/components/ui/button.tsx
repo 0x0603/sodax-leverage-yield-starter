@@ -4,26 +4,25 @@ import type { ComponentProps } from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm border font-medium shadow-[inset_0_1px_0_rgba(255,255,255,.6),0_1px_1px_rgba(0,0,0,.25)] transition-colors active:shadow-[inset_0_1px_3px_rgba(0,0,0,.35)] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:active:translate-y-0 [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap text-[13px] disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default:
-          'border-primary-hover bg-gradient-to-b from-primary-light to-primary text-primary-foreground hover:to-primary-hover',
-        secondary:
-          'border-border bg-gradient-to-b from-secondary-light to-secondary text-secondary-foreground font-semibold hover:to-muted',
-        outline: 'border-input bg-card text-foreground shadow-none hover:bg-secondary',
-        ghost: 'border-transparent text-foreground shadow-none hover:bg-secondary',
-        destructive: 'border-destructive bg-destructive text-destructive-foreground hover:opacity-90',
-        /** For use on the hero / primary surfaces. */
-        accent: 'border-primary-hover bg-accent text-accent-foreground font-semibold hover:opacity-90',
-        link: 'border-transparent text-primary underline-offset-4 shadow-none hover:underline',
+        /** The dialog's default button: blue inner glow. */
+        default: 'xp-btn xp-btn-default font-bold',
+        secondary: 'xp-btn',
+        outline: 'xp-btn',
+        ghost: 'xp-btn xp-btn-flat',
+        destructive: 'xp-btn xp-btn-danger font-bold',
+        /** Green "Go" button, for primary surfaces. */
+        accent: 'xp-btn xp-btn-go font-bold',
+        link: 'text-link underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-11 px-5 text-sm',
-        sm: 'h-9 px-4 text-sm',
-        lg: 'h-12 px-6 text-base',
-        icon: 'size-10',
+        default: 'h-9 min-w-[88px] px-4',
+        sm: 'h-7 min-w-16 px-3 text-xs',
+        lg: 'h-10 min-w-[100px] px-5 text-sm',
+        icon: 'size-8',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },

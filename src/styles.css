@@ -1,9 +1,6 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource/inria-serif/400.css";
-@import "@fontsource/inria-serif/700.css";
-@import "@fontsource/shrikhand/400.css";
 @import "./brand/theme.css";
+@import "./brand/xp.css";
 
 /* Map brand variables (src/brand/theme.css) to Tailwind utilities. Use these, never raw hex values. */
 @theme inline {
@@ -13,6 +10,7 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-window: var(--window);
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-hover: var(--primary-hover);
@@ -22,10 +20,14 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
+  --color-link: var(--link);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-subtle-foreground: var(--subtle-foreground);
   --color-border: var(--border);
+  --color-border-light: var(--border-light);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-hero: var(--hero);
@@ -47,6 +49,7 @@
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-accent: var(--font-accent);
+  --font-title: var(--font-title);
 }
 
 @layer base {

@@ -32,7 +32,7 @@ export function LeverageYieldPage() {
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-8">
       {address && (
         <Positions
           vaults={ordered}
@@ -41,10 +41,10 @@ export function LeverageYieldPage() {
         />
       )}
 
-      <section className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="font-display text-2xl font-bold">Vaults</h2>
-          <p className="max-w-2xl text-sm text-muted-foreground">
+      <section id="vaults" className="flex scroll-mt-4 flex-col gap-4">
+        <div className="flex flex-col gap-1.5">
+          <h2 className="xp-section-title text-lg">Vaults</h2>
+          <p className="max-w-3xl text-[13px] text-muted-foreground">
             Pooled ERC-4626 vaults on Sonic. Each holds a liquid staking token, borrows against it and re-stakes up to a
             target LTV, multiplying the staking yield and the risk. Deposit any supported token from{' '}
             {SOURCE_CHAINS.map(chainName).join(', ')}; a solver delivers the vault shares.

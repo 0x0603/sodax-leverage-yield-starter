@@ -1,7 +1,6 @@
-import { WalletIcon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { FolderIcon } from '@/components/xp/icons';
 import type { SourceChainKey } from '@/config/workshop';
 import { chainName } from '@/lib/chains';
 import { formatTokenAmount } from '@/lib/format';
@@ -36,30 +35,53 @@ export function Positions({
   const hasAny = Object.values(values).some(v => v.rows > 0);
 
   return (
-    <section className="flex flex-col gap-3">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-bold">Your positions</h2>
-          <p className="text-sm text-muted-foreground">Held in your SODAX hub wallet on Sonic, per source network.</p>
-        </div>
+    <section id="positions" className="flex scroll-mt-4 flex-col gap-2">
+      <h2 className="xp-section-title text-lg">My Positions</h2>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
+        <p>Held in your SODAX hub wallet on Sonic, per source network.</p>
         {hasAny && (
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground">Total value</p>
-            <p className="text-2xl font-bold tabular-nums">{formatUsd(totalUsd)}</p>
-          </div>
+          <p>
+            Total value: <span className="font-bold text-foreground tabular-nums">{formatUsd(totalUsd)}</span>
+          </p>
         )}
       </div>
-      <Card className="divide-y overflow-hidden">
-        {vaults.map(meta => (
-          <PositionRows key={meta.vault.name} meta={meta} address={address} onWithdraw={onWithdraw} report={report} />
-        ))}
-        {!hasAny && (
-          <div className="flex items-center gap-3 p-5 text-sm text-muted-foreground">
-            <WalletIcon className="size-4" />
-            No vault shares yet. Pick a vault below to make your first deposit.
-          </div>
-        )}
-      </Card>
+      <div className="xp-sunken overflow-x-auto">
+        <table className="xp-listview">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Network</th>
+              <th className="text-right">Shares</th>
+              <th className="text-right">Value</th>
+              <th className="text-right">USD</th>
+              <th>
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {vaults.map(meta => (
+              <PositionRows
+                key={meta.vault.name}
+                meta={meta}
+                address={address}
+                onWithdraw={onWithdraw}
+                report={report}
+              />
+            ))}
+            {!hasAny && (
+              <tr>
+                <td colSpan={6} className="py-4 text-muted-foreground">
+                  <span className="flex items-center gap-2">
+                    <FolderIcon className="size-6" />
+                    No vault shares yet. Pick a vault below to make your first deposit.
+                  </span>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
@@ -88,27 +110,29 @@ function PositionRows({
   useEffect(() => report(meta.vault.name, usd, rows.length), [report, meta.vault.name, usd, rows.length]);
 
   return rows.map(r => (
-    <div key={r.chainKey} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">
-      <div className="flex min-w-40 flex-1 items-center gap-3">
-        <TokenBadge symbol={meta.assetSymbol} />
-        <div className="flex flex-col">
-          <span className="font-semibold">{meta.shareSymbol}</span>
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <ChainIcon chainKey={r.chainKey as SourceChainKey} className="size-3" />
-            via {chainName(r.chainKey)}
-          </span>
-        </div>
-      </div>
-      <div className="flex flex-col text-sm tabular-nums">
-        <span className="font-semibold">{formatTokenAmount(r.shares, SHARE_DECIMALS)} shares</span>
-        <span className="text-xs text-muted-foreground">
-          {formatTokenAmount(r.assets, meta.assetDecimals)} {meta.assetSymbol}
+    <tr key={r.chainKey}>
+      <td>
+        <span className="flex items-center gap-2">
+          <TokenBadge symbol={meta.assetSymbol} className="size-6 text-[10px]" />
+          <span className="font-bold">{meta.shareSymbol}</span>
         </span>
-      </div>
-      <span className="w-24 text-right font-semibold tabular-nums">{formatUsd(r.usd)}</span>
-      <Button size="sm" variant="outline" onClick={() => onWithdraw(meta, r.chainKey as SourceChainKey)}>
-        Withdraw
-      </Button>
-    </div>
+      </td>
+      <td>
+        <span className="flex items-center gap-1.5 whitespace-nowrap">
+          <ChainIcon chainKey={r.chainKey as SourceChainKey} />
+          {chainName(r.chainKey)}
+        </span>
+      </td>
+      <td className="text-right tabular-nums">{formatTokenAmount(r.shares, SHARE_DECIMALS)}</td>
+      <td className="text-right whitespace-nowrap tabular-nums">
+        {formatTokenAmount(r.assets, meta.assetDecimals)} {meta.assetSymbol}
+      </td>
+      <td className="text-right font-bold tabular-nums">{formatUsd(r.usd)}</td>
+      <td className="text-right">
+        <Button size="sm" variant="outline" onClick={() => onWithdraw(meta, r.chainKey as SourceChainKey)}>
+          Withdraw…
+        </Button>
+      </td>
+    </tr>
   ));
 }

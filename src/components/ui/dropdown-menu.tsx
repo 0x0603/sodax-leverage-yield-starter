@@ -7,14 +7,14 @@ export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
 export function DropdownMenuContent({
   className,
-  sideOffset = 6,
+  sideOffset = 4,
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.Content>) {
   return (
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
         sideOffset={sideOffset}
-        className={cn('z-50 min-w-48 rounded-md border bg-popover p-1 text-popover-foreground shadow-lg', className)}
+        className={cn('xp-menu z-50 min-w-48 p-0.5 text-popover-foreground', className)}
         {...props}
       />
     </DropdownMenuPrimitive.Portal>
@@ -25,7 +25,7 @@ export function DropdownMenuItem({ className, ...props }: ComponentProps<typeof 
   return (
     <DropdownMenuPrimitive.Item
       className={cn(
-        'flex cursor-pointer select-none items-center gap-2 rounded-sm px-3 py-2 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4',
+        'flex cursor-pointer select-none items-center gap-2 px-3 py-1.5 text-[13px] outline-none data-[highlighted]:bg-selection data-[highlighted]:text-selection-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4',
         className,
       )}
       {...props}
@@ -35,10 +35,10 @@ export function DropdownMenuItem({ className, ...props }: ComponentProps<typeof 
 
 export function DropdownMenuLabel({ className, ...props }: ComponentProps<typeof DropdownMenuPrimitive.Label>) {
   return (
-    <DropdownMenuPrimitive.Label className={cn('px-3 py-2 text-xs text-muted-foreground', className)} {...props} />
+    <DropdownMenuPrimitive.Label className={cn('px-3 py-1.5 text-xs text-muted-foreground', className)} {...props} />
   );
 }
 
 export function DropdownMenuSeparator({ className, ...props }: ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
-  return <DropdownMenuPrimitive.Separator className={cn('-mx-1 my-1 h-px bg-border', className)} {...props} />;
+  return <DropdownMenuPrimitive.Separator className={cn('mx-1 my-1 h-px bg-border-light', className)} {...props} />;
 }
