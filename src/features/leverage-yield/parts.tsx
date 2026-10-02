@@ -109,7 +109,7 @@ export function SlippagePicker({ value, onChange }: { value: number; onChange: (
           aria-pressed={value === bps}
           onClick={() => onChange(bps)}
           className={cn(
-            'rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors',
+            'rounded-sm border px-2.5 py-0.5 text-xs font-medium transition-colors',
             value === bps ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-secondary',
           )}
         >
